@@ -1,0 +1,89 @@
+/*
+    This file only contains styles for the side panel of the webpage.
+*/
+
+/* Color palette */
+.my-styles {
+    --primary-color: #d13d29;
+    --secondary-color: #575757;
+}
+
+/* Disable scrolling on the map */
+html {
+    overflow-y: hidden;
+}
+
+/* Position the map behind the panel */
+.folium-map {
+    z-index: 1;
+}
+
+/* ============= PANEL (MAIN BOX) ============= */
+
+.my-styles.panel-container {
+    z-index: 2;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: 400px;
+    height: 100%;
+
+    background: transparent;
+    padding: 10px;
+}
+
+.my-styles.panel {
+    width: 100%;
+    height: 100%;
+
+    padding: 15px;
+    border-radius: 2px;
+
+    background: white;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+}
+
+.my-styles.panel hr {
+    height: 1px;
+    border-width: 0;
+    background-color: #c2c2c2;
+}
+
+.my-styles.panel h1 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 35px;
+
+    color: var(--secondary-color);
+}
+
+.my-styles.panel .instructions {
+    width: 100%;
+}
+
+.my-styles.panel .instructions h2 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-left: 10px;
+
+    color: var(--secondary-color);
+}
+
+.my-styles.panel .instructions .instructions-box {
+    border: 1px solid #c2c2c2;
+    border-radius: 5px;
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    padding-right: 20px;
+
+    overflow-y: scroll;
+    scrollbar-color: var(--primary-color) transparent;
+}
+
+.my-styles.panel .instructions .instructions-box p {
+    font-size: 16px;
+    line-height: 25px;
+}
