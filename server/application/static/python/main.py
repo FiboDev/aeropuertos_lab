@@ -3,6 +3,7 @@ import json
 
 areopuertos = airports()
 areopuertos.initialize_airports_list()
+areopuertos.initialize_shortest_paths()
 
 def addVertex(latitude: float, longitude: float):
     areopuertos.add_airport_vertex(latitude, longitude)

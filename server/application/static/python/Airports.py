@@ -52,6 +52,7 @@ class airports:
     
 
     def initialize_airports_list(self):
+        
         # open the airports csv file in read mode
         with open("server/application/static/Aeropuertos.csv") as csvfile:
             # create a csv reader object with ; as delimiter
@@ -174,6 +175,7 @@ class airports:
                 coordinate_list = []
                 for name in new_path:
                     coordinate_list.append(list(self.namesToCoordinates(name)))
+
                 return coordinate_list
 
 

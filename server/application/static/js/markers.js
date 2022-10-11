@@ -110,11 +110,13 @@ function AddAirport(airport_name, airport_lat, airport_lon) {
 
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
 
-                //aqui tienes la distancia
+                //Server response
                 var response = JSON.parse(xhr.responseText);
 
                 console.log(response);
 
+                // CASES:
+                // If direct flight doesnt exist
                 if (response["distance"] == "null") {
                     console.log('No hay vuelo directo.');
                     isFirstSelected = true;

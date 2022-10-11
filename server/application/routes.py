@@ -25,10 +25,14 @@ def get_post():
     
     first_airport = data[0]
     second_airport = data[1]
-    
+
     addVertex(first_airport[0], first_airport[1])
     addVertex(second_airport[0], second_airport[1])
     
     response = addEdge(first_airport[0], first_airport[1], second_airport[0], second_airport[1])
-
-    return {"distance": response}
+    
+    if type(response) is dict: 
+        
+        return response 
+    
+    return {"distance": response, "ruta": None}
