@@ -15,21 +15,14 @@ class AirportNode:
     def __str__(self) -> str:
         return self.name
 
-# 1. Se recibe un vertice inicial y otro final
-# 2. Se intenta entablar la conexion entre los dos vertices
-# 3. Si no es posible entablar la conexion entonces se consulta el camino minimo del vertice inicial al final
-# 4. Se agregan los vertices y conexiones de este camino minimo al grafo
-# add all the airports to the graph
-
-
 class airports:
 
     def __init__(self):
         self.graph = {}
-        self.complete_graph = {}
+        self.shortest_paths ={}
         self.airports_list = []
 
-    def full_graph(self):
+    def initialize_shortest_paths(self):
         
         # add all the vertex to the graph
         for i in range(49):
@@ -40,19 +33,27 @@ class airports:
         for airport in self.airports_list:
             for airport2 in self.airports_list:
                 self.add_adjacency(
-                    airport.latitude, airport.longitude, airport2.latitude, airport2.longitude, False)
+                    airport.latitude, airport.longitude, airport2.latitude, airport2.longitude)
+        
+        #calculate the shortest paths between all the vertex
+        path = self.floyd_warshall()
+
+        #add the shortes paths from one airport to another to the shortest_paths dictionary
+        for names in self.graph:
+            coordinates = self.namesToCoordinates(names)
+            result = self.shortest_paths_to_airports(coordinates[0],coordinates[1], path)
+            self.shortest_paths.update({names: result})
 
         #clear all the adjacencies dictionaries in the airports list
         for airport in self.airports_list:
             airport.adjacency_list.clear()
                     
-        self.complete_graph = self.graph.copy()
         self.graph.clear()
     
 
     def initialize_airports_list(self):
         # open the airports csv file in read mode
-        with open('server/application/static/Aeropuertos.csv') as csvfile:
+        with open("server/application/static/Aeropuertos.csv") as csvfile:
             # create a csv reader object with ; as delimiter
             reader = csv.DictReader(csvfile, delimiter=';')
             # iterate through the rows of the csv file
@@ -125,8 +126,9 @@ class airports:
         # if the airport is not found in the graph or the airport is not in the list, return false
         return False
 
-    def add_adjacency(self, latOrigin: float, longOrigin: float, latDest: float, longDest: float, sw = False):
+    def add_adjacency(self, latOrigin: float, longOrigin: float, latDest: float, longDest: float):
         # check if the adjacency vertex is in the graph
+        
         if self.is_vertex_in_graph(latOrigin, longOrigin) and self.is_vertex_in_graph(latDest, longDest):
             # search for the airport in the airport list
             airport = self.search_airport_in_list(latOrigin, longOrigin)
@@ -143,24 +145,36 @@ class airports:
                     # update the adjacency list of the destination airport in the graph
                     self.graph.update({airport.name: airport.adjacency_list.copy()})
                     return distance 
+            
+            new_path = []
+            # if the connection can not be established, find the minor distance between the airports
+            for key in self.shortest_paths:
+                if key == self.coordinatesToName(latOrigin, longOrigin):
+                    for key2 in self.shortest_paths[key]:
+                        if key2 == self.coordinatesToName(latDest, longDest):
+                             new_path = self.shortest_paths[key][key2]
+            if len(new_path) == 0:
+                return None
+            else:
+                #add the new vertex to the graph
+                for name in new_path:
+                    coordinates = self.namesToCoordinates(name)
+                    self.add_airport_vertex(coordinates[0], coordinates[1])
 
-            if sw:
-                # if the connection can not be established, calculate the minor distance between the airports
-                minum_path = self.shortest_path_between_airports(latOrigin, longOrigin, latDest, longDest)
-                if len(minum_path) == 0:
-                    return None
-                else:
-                    for name in minum_path:
-                        coordinates = self.namesToCoordinates(name)
-                        self.add_airport_vertex(coordinates[0], coordinates[1])
+                #add the new adjacency to the graph
+                for i in range(len(new_path)-1):
 
-                    for i in range(len(minum_path)-1):
-                        self.add_adjacency(self.namesToCoordinates(minum_path[i][0]), self.namesToCoordinates(minum_path[i][1]), self.namesToCoordinates(minum_path[i+1][0]), self.namesToCoordinates(minum_path[i+1][1]))
+                    lat1 = self.namesToCoordinates(new_path[i])[0]
+                    long1 = self.namesToCoordinates(new_path[i])[1]
+                    lat2 = self.namesToCoordinates(new_path[i+1])[0]
+                    long2 = self.namesToCoordinates(new_path[i+1])[1]
+
+                    self.add_adjacency(lat1, long1, lat2, long2)
                     
-                    coordinate_list = []
-                    for name in minum_path:
-                        coordinate_list.append(list(self.namesToCoordinates(name)))
-                    return  coordinate_list
+                coordinate_list = []
+                for name in new_path:
+                    coordinate_list.append(list(self.namesToCoordinates(name)))
+                return coordinate_list
 
 
     def remove_airport_vertex(self, latitude: float, longitude: float):
@@ -296,9 +310,9 @@ class airports:
         # return the path matrix
         return path
     
-    def shortest_path_between_airports(self, latOrigin: float, longOrigin: float, latDest: float, longDest: float):
+    def shortest_path_between_airports(self, latOrigin: float, longOrigin: float, latDest: float, longDest: float, pathlist):
         # get the path matrix
-        path = self.floyd_warshall()
+        path = pathlist
         # search for the origin and destination airports in the airports list
         origin = self.search_airport_in_list(latOrigin, longOrigin)
         destiny = self.search_airport_in_list(latDest, longDest)
@@ -332,9 +346,9 @@ class airports:
             return pathList
         return None
     
-    def shortest_paths_to_airports(self, latOrigin: float, longOrigin: float):
+    def shortest_paths_to_airports(self, latOrigin: float, longOrigin: float, pathList):
         # get the path matrix
-        path = self.floyd_warshall()
+        path = pathList
         # search for the origin and destination airports in the airports list
         origin = self.search_airport_in_list(latOrigin, longOrigin)
         if origin is not None:

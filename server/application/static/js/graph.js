@@ -60,7 +60,7 @@ function DrawGraph() {
         new_line.arrowheads({size: '5px', fill: true,  frequency: 3});
 
         // Add weight to the line
-        new_line.setText(`${distances[i]}km`, {repeat: false, center: true, offset: -5, attributes: {fill: 'gray', 'font-size': '14px'}});
+        new_line.setText(`${parseInt(distances[i])} km`, {repeat: false, center: true, offset: -5, attributes: {fill: 'gray', 'font-size': '14px'}});
         
         // Add del function to the edge
         new_line.on("dblclick", (e) => {

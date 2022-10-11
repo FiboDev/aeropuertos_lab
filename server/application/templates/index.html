@@ -13,6 +13,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <script src="https://kit.fontawesome.com/51a9d021a9.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
@@ -69,8 +70,47 @@
 
                     <hr>
 
+                    <!-- TOOLS -->
                     <div class="tools">
-                        
+
+                        <div class="tools-controls">
+                            <div id="control-prev"><i class="fa-solid fa-caret-left"></i></div>
+                            
+                            <div id="control-next"><i class="fa-solid fa-caret-right"></i></div>
+                        </div>
+
+                        <div class="tools-container" id="tools-container">
+
+                            <div class="tools-wrapper">
+                                <section class="tool traverses">
+                                    <div class="actual-tool-wrapper">
+                                        <h3 class="actual-tool">Recorridos</h3>
+                                    </div>
+                                    <p>Haga clic en cualquier de los 2 botones y siga las instrucciones:</p>
+                                    <div class="buttons">
+                                        <button>Recorrido BFS</button>
+                                        <button>Recorrido DFS</button>
+                                    </div>
+                                    <p>Resultados:</p>
+                                    <div class="results"></div>
+                                </section>
+    
+                                <section class="tool paths">
+                                    <div class="actual-tool-wrapper">
+                                        <h3 class="actual-tool">Caminos</h3>
+                                    </div>
+                                    <p>Haga clic en cualquier de los 2 botones y vea el camino de menor distancia:</p>
+                                    <div class="buttons">
+                                        <button>De un punto a otro</button>
+                                        <button>De un punto a los demás</button>
+                                    </div>
+                                    <p>Resultados:</p>
+                                    <div class="results"></div>
+                                </section>
+                            </div>
+                            
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -1459,6 +1499,7 @@
 <script src="../static/js/leaflet.textpath.js"></script>
 
 <!-- MY SCRIPTS -->
+<script src="../static/js/tools.js"></script>
 <script src="../static/js/graph.js"></script>
 <script src="../static/js/markers.js"></script>
 <script src="../static/js/motion.js"></script>
