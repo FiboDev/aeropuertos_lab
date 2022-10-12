@@ -178,6 +178,10 @@ html {
     margin-top: 10px;
 }
 
+.tools .tools-container section p .fa-copy {
+    cursor: pointer;
+}
+
 .tools .tools-container section .buttons {
     width: 100%;
 }

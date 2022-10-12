@@ -313,6 +313,14 @@ function ClearGraph() {
 
 // BFS traversal
 function Traversal(traversal_type) {
+    //
+    const button = document.querySelector('button')
+
+    // If there are no markers added to the graph
+    if (selected_markers.length == 0) {
+        console.log("Seleccione al menos un aeropuerto antes de pulsar este botón.");
+        return;
+    }
     
     console.log("Haga clic en un aeropuerto inicial para empezar el recorrido.");
 
