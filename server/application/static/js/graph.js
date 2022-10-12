@@ -311,15 +311,19 @@ function ClearGraph() {
 
 // FUNCTIONS FROM THE PANEL
 
-// BFS traversal
+// Traversals (BFS and DFS)
 function Traversal(traversal_type) {
-    //
-    const button = document.querySelector('button')
-
     // If there are no markers added to the graph
     if (selected_markers.length == 0) {
         console.log("Seleccione al menos un aeropuerto antes de pulsar este botón.");
         return;
+    }
+
+    // Block buttons until the end.
+    const buttons = document.querySelectorAll('button');
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].disabled = true;
+        buttons[i].style.background = "var(--secondary-color)";
     }
     
     console.log("Haga clic en un aeropuerto inicial para empezar el recorrido.");
@@ -413,6 +417,13 @@ function Traversal(traversal_type) {
                         }
                         
                     }
+                }
+
+                // Block buttons until the end.
+                const buttons = document.querySelectorAll('button');
+                for (let i = 0; i < buttons.length; i++) {
+                    buttons[i].disabled = false;
+                    buttons[i].style.background = "var(--primary-color)";
                 }
                 
 
