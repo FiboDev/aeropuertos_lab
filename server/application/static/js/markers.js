@@ -173,7 +173,41 @@ function AddAirport(airport_name, airport_lat, airport_lon) {
                         // Add each new vertex to selected markers on the map
                         map.eachLayer(function (layer) {
                             try {
-                                console.log(layer._latlng);
+                                if (response["vertices"][i][0] == layer._latlng.lat && response["vertices"][i][1] == layer._latlng.lng) {
+                                    // Each marker on the new route
+                                    let marker_on_route = layer._icon;
+
+                                    // Check those markers that aren't on the selected markers group
+                                    if (marker_on_route.getAttribute('isadded') != 'true') {
+                                        // Add them and set a bunch of properties... lmao
+
+                                        // Get airport name on that coordinate
+                                        let airport_on_route = response["nombres_con_tildes"][i];
+
+                                        // Set an ID to the selected marker
+                                        marker_on_route.setAttribute('id', `${airport_on_route}`);
+
+                                        // If the markers is added, add isAdded flag
+                                        marker_on_route.setAttribute('isadded', true);
+
+                                        // Color the airport and add to the selected markers
+                                        marker_on_route.classList.remove("awesome-marker-icon-gray");
+                                        marker_on_route.classList.add("awesome-marker-icon-red");
+
+                                        // Toggle delete button
+                                        // The way leaflet works with graphs is horrible...
+                                        // The following block adds a function that waits to be executed once the user clicks
+                                        // on the awaited airport.
+                                        marker_on_route.addEventListener("click", function() {
+                                            let delay = setInterval(() => {
+                                                ToggleDelButton(airport_on_route);
+                                                clearInterval(delay);
+                                            }, 100);
+                                        }, {once : true});
+                                        
+                                    }
+                                }
+                               
                             }
                             catch(e) {}
                         });

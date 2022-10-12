@@ -5,8 +5,9 @@ from vincenty import vincenty
 
 class AirportNode:
 
-    def __init__(self, name: str, latitude: float, longitude: float) -> None:
+    def __init__(self, name: str, name_accent_mark: str, latitude: float, longitude: float) -> None:
         self.name = name
+        self.name_accent_mark = name_accent_mark 
         self.latitude = latitude
         self.longitude = longitude
         self.connections = []
@@ -61,11 +62,12 @@ class airports:
             for row in reader:
                 # uppercase the name of the airport
                 name = row['nombre_sin_tilde'].upper()
+                name_accent_mark = row['nombre_con_tilde']
                 # cast the latitude and longitude to float
                 latitude = float(row['latitude_deg'])
                 longitude = float(row['longitude_deg'])
                 # creates a new airport node with the data
-                airport = AirportNode(name, latitude, longitude)
+                airport = AirportNode(name, name_accent_mark, latitude, longitude)
                 # add the airport to the list of airports
                 self.airports_list.append(airport)
 
@@ -180,9 +182,18 @@ class airports:
                     for name in new_path:
                         coordinate_list.append(list(self.namesToCoordinates(name)))
                     
+                    #search accented mark names
+                    accent_mark_list = []
+                    for name in new_path:
+                        for airport in self.airports_list:
+                            if name == airport.name:
+                                accent_mark_list.append(airport.name_accent_mark)
+                                break
+
+                    print("esto es distance list", distance_list)
                     #create a dictionary that contains the coordinates and the distance of the new minimum path
                     dictionary = {}
-                    dictionary = {'vertices': coordinate_list, 'distances': distance_list}
+                    dictionary = {'nombres_con_tildes':accent_mark_list, 'nombres':new_path, 'vertices': coordinate_list, 'distances': distance_list}
                     return  dictionary
 
     def remove_airport_vertex(self, latitude: float, longitude: float):
