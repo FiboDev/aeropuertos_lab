@@ -59,10 +59,16 @@ def get_post():
     
     if method == "remove_vertex":
         
-        ... 
+        lat = data.get("lat")
+        lon = data.get("lon")
+        
+        removeVertex(lat, lon)
     
     if method == "remove_edge":
         
-        ...
+        first_airport = data.get("from")
+        second_airport = data.get("to")
+        
+        removeEdge(first_airport[0], first_airport[1], second_airport[0], second_airport[1])
     
-    return "response"
+    return "OK"

@@ -101,6 +101,18 @@ function DelAirport(airport_name, airport_lat, airport_lon) {
     // Delete associated edges of a marker on deletion.
     DelAssoEdges(airport_lat, airport_lon);
 
+    //
+
+    xhr.open("POST", "/api/v1", true);
+        xhr.setRequestHeader("Content-Type", "application/json")
+        xhr.send(JSON.stringify({"lat": airport_lat, "lon": airport_lon, "method": "remove_vertex"}))
+        xhr.onreadystatechange = function () {
+
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                console.log("Aeropuerto eliminado.");
+            }
+        }
+
 }
 ////
 

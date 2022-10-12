@@ -264,6 +264,18 @@ function DelEdge(coords) {
 
     // Draw the graph
     DrawGraph();
+
+    //
+    xhr.open("POST", "/api/v1", true);
+        xhr.setRequestHeader("Content-Type", "application/json")
+        xhr.send(JSON.stringify({"from": from, "to": to, "method": "remove_edge"}))
+        xhr.onreadystatechange = function () {
+
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+
+                console.log("Vuelo eliminada.");
+            }
+        }
 }
 
 // Delete associated edges of a marker on deletion
@@ -292,9 +304,7 @@ function ClearGraph() {
             try {
                 map.removeLayer(map._layers[i]);
             }
-            catch(e) {
-                console.log("problem with " + e + map._layers[i]);
-            }
+            catch(e) {}
         }
     }
 }
