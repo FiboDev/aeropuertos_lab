@@ -26,10 +26,10 @@ class airports:
     def initialize_shortest_paths(self):
         
         # add all the vertex to the graph
-        for i in range(49):
+        for i in range(len(self.airports_list)):
             self.add_airport_vertex(
                 self.airports_list[i].latitude, self.airports_list[i].longitude)
-                
+        
         # add all the possible connections to the graph
         for airport in self.airports_list:
             for airport2 in self.airports_list:
@@ -39,7 +39,7 @@ class airports:
         #calculate the shortest paths between all the vertex
         path = self.floyd_warshall()
 
-        #add the shortes paths from one airport to another to the shortest_paths dictionary
+        #add the shortest paths from one airport to another to the shortest_paths dictionary
         for names in self.graph:
             coordinates = self.namesToCoordinates(names)
             result = self.shortest_paths_to_airports(coordinates[0],coordinates[1], path)
@@ -48,7 +48,8 @@ class airports:
         #clear all the adjacencies dictionaries in the airports list
         for airport in self.airports_list:
             airport.adjacency_list.clear()
-                    
+        
+        #clear the graph for start saving the user's graph
         self.graph.clear()
     
 
@@ -329,7 +330,7 @@ class airports:
         # return the path matrix
         return path
     
-    def shortest_path_between_airports(self, latOrigin: float, longOrigin: float, latDest: float, longDest: float, pathlist):
+    def shortest_path_between_airports(self, latOrigin: float, longOrigin: float, latDest: float, longDest: float, pathlist: list):
         # get the path matrix
         path = pathlist
         # search for the origin and destination airports in the airports list
@@ -350,37 +351,55 @@ class airports:
                 # return an empty list
                 return []
             # create a list to store the path and add the destination airport to the list
-            pathList = [destiny.name]
+            pathList = []
+            expectedEnd = None
+            inserPosition = 0
             # while the previous airport is not None
-            while previousAirport is not None:
-                # add the previous airport to the path list
-                pathList.append(previousAirport)
-                # get the index of the previous airport in the graph
-                previousAirportIndex = keys.index(previousAirport)
-                # get the previous airport of the previous airport
-                previousAirport = originRow[previousAirportIndex]
-                # append the origin airport to the path list
-            # reverse the path list
-            pathList.reverse()
-            return pathList
+            while True:
+                while previousAirport is not expectedEnd:
+                    # add the previous airport to the path list
+                    pathList.insert(inserPosition, previousAirport)
+                    # get the index of the previous airport in the graph
+                    previousAirportIndex = keys.index(previousAirport)
+                    # get the previous airport of the previous airport
+                    previousAirport = originRow[previousAirportIndex]
+                    # append the origin airport to the path list
+                # verify if the last airport in the path is connected to the destination airport directly
+                lastAirport = pathList[-1]
+                for airport in self.airports_list:
+                    if airport.name == lastAirport:
+                        lastAirport = airport
+                        break
+                # if it is connected, return the path list
+                for connection in lastAirport.connections:
+                    if connection.name == destiny.name:
+                        pathList.append(destiny.name)
+                        return pathList
+                # if it is not connected, get the path from the last airport to the destination airport and add it to the path list
+                originRow = path[keys.index(lastAirport.name)]
+                previousAirport = originRow[destIndex]
+                inserPosition = len(pathList)
+                expectedEnd = lastAirport.name
+                
         return None
     
-    def shortest_paths_to_airports(self, latOrigin: float, longOrigin: float, pathList):
+    def shortest_paths_to_airports(self, latOrigin: float, longOrigin: float, pathlist: list):
         # get the path matrix
-        path = pathList
+        path = pathlist
+        
         # search for the origin and destination airports in the airports list
         origin = self.search_airport_in_list(latOrigin, longOrigin)
         if origin is not None:
             # get the vertex of the graph
             keys = list(self.graph.keys())
-            # get the index of the origin airport in the graph
-            originIndex = keys.index(origin.name)
-            # from the path matrix, get the row corresponding to the origin airport
-            originRow = path[originIndex]
             # creates a dict to store the shortest paths to each airport
             pathDict = {key : [] for key in keys if key != origin.name}
             # iterate through the airports
             for key in pathDict:
+                # get the index of the origin airport in the graph
+                originIndex = keys.index(origin.name)
+                # from the path matrix, get the row corresponding to the origin airport
+                originRow = path[originIndex]
                 # get the index of the destination airport in the graph
                 destIndex = keys.index(key)
                 # get the previous airport to the destination airport
@@ -389,12 +408,36 @@ class airports:
                 if previousAirport is None:
                     # the list remains empty
                     continue
-                pathDict[key].append(key)
-                while previousAirport is not None:
-                    pathDict[key].append(previousAirport)
-                    previousAirportIndex = keys.index(previousAirport)
-                    previousAirport = originRow[previousAirportIndex]
-                pathDict[key].reverse()
+                expectedEnd = None
+                inserPosition = 0
+                # while the previous airport is not None
+                while True:
+                    while previousAirport is not expectedEnd:
+                        # add the previous airport to the path list
+                        pathDict[key].insert(inserPosition, previousAirport)
+                        # get the index of the previous airport in the graph
+                        previousAirportIndex = keys.index(previousAirport)
+                        # get the previous airport of the previous airport
+                        previousAirport = originRow[previousAirportIndex]
+                        # append the origin airport to the path list
+                    # verify if the last airport in the path is connected to the destination airport directly
+                    lastAirport = pathDict[key][-1]
+                    for airport in self.airports_list:
+                        if airport.name == lastAirport:
+                            lastAirport = airport
+                            break
+                    for connection in lastAirport.connections:
+                        if connection.name == key:
+                            pathDict[key].append(key)
+                            break
+                    # if it is connected, break the loop
+                    if pathDict[key][-1] == key:
+                        break
+                    # if it is not connected, get the path from the last airport to the destination airport and add it to the path list
+                    originRow = path[keys.index(lastAirport.name)]
+                    previousAirport = originRow[destIndex]
+                    inserPosition = len(pathDict[key])
+                    expectedEnd = lastAirport.name
             return pathDict
 
     def namesToCoordinates(self, name: str):

@@ -315,28 +315,56 @@ function ClearGraph() {
 function BFSTraversal() {
     console.log("Haga clic en un aeropuerto ya añadido.");
 
-    // Initial value from the last selected marker
-    let initialValue = lastMarkerSelected;
+    let on_selection = true;
+    let marker_clicked;
 
-    // Listener on change of that value.
-    let listener = setInterval(function() {
-        if (lastMarkerSelected != initialValue) {
-            // Check if the clicked marker is already added.
-            if (lastMarkerSelected.getAttribute("isadded") != "true") {
-                console.log("Solo debe ser un aeropuerto YA añadido. Haga clic de nuevo en el botón de recorrido.");
-                // Stop listening
-                clearInterval(listener);
-
-                return;
-            } else {
-                // Stop listening
-                clearInterval(listener);
-
-                console.log('xd');
+    // Get a click from the user
+    function getClick() {
+        return new Promise(acc => {
+          function handleClick() {
+            document.removeEventListener('click', handleClick);
+            acc();
+          }
+          document.addEventListener('click', handleClick);
+          document.onclick = e => { // Save last element clicked
+            // If clicked on a marker (with a DIV tag)
+            if (e.target.tagName == 'DIV') {
+                for (let i = 0; i < markers.length; i++) {
+                    if (e.target == markers[i]) {
+                        marker_clicked = e.target;
+                    }
+                }
             }
+
+            // If clicked on a marker icon (with a I tag)
+            if (e.target.tagName == 'I') {
+                for (let i = 0; i < markers.length; i++) {
+                    if (e.target.parentElement == markers[i]) {
+                        marker_clicked = e.target.parentElement;
+                    }
+                }
+            }
+          } 
+        });
+    }
+
+    // Hold the user until it clicks a correct element
+    setTimeout(async function () {
+        while(on_selection) {
+            await getClick(); // Wait for a user click...
+            
+            try {
+                if (marker_clicked.getAttribute("isadded") == "true") {
+                    on_selection = false;
+                    console.log("Selección correcta!");
+                } else{
+                    console.log("Haga clic en un aeropuerto 'NARANJA'.");
+                }
+            } catch (e) {}
             
         }
-    },100);
+    }, 100);
+    
 
     // let startPoint = lastMarkerSelected;
 

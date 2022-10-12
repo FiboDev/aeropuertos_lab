@@ -35,6 +35,7 @@ var selected_markers = document.getElementsByClassName("awesome-marker-icon-red 
 /*
     FUNCTIONS
 */
+
 // Start blinking animation
 function blink(element) {
     $(element).fadeOut(200);
@@ -124,7 +125,8 @@ function DelAirport(airport_name, airport_lat, airport_lon) {
     ON-LOAD SCRIPT
 */
 // Get the HTML element clicked
-document.onclick = e => {
+
+window.onclick = e => {
     // If clicked on a marker (with a DIV tag)
     if (e.target.tagName == 'DIV') {
         for (let i = 0; i < markers.length; i++) {
@@ -142,7 +144,6 @@ document.onclick = e => {
             }
         }
     }
-    
 }
 
 
