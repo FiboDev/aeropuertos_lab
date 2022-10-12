@@ -10,7 +10,7 @@
 /*
     MAIN FUNCTION
 */
-function MoveAirplane(path) {
+function MoveAirplane(path, time) {
     var anim = L.motion.polyline(path, {
             color: "transparent"
             }, {
@@ -19,13 +19,13 @@ function MoveAirplane(path) {
                 removeOnEnd: true,
                 showMarker: true,
                 icon: L.divIcon({html: `<i class='fa fa-plane fa-2x' aria-hidden='true' motion-base='-48'></i>`, iconSize: L.point(0,0)})
-            }).motionDuration(1000).addTo(map);
+            }).motionDuration(time).addTo(map);
     
     anim.motionStart();
 
     setInterval(function() {
         anim.remove(map);
-    }, 1000);
+    }, time);
 }
 ////
 

@@ -69,7 +69,12 @@ def get_post():
     
     if method == "point_to_point":
         
-        ... 
+        first_airport = data.get("from")
+        second_airport = data.get("to")
+        
+        response = shortestPathBetweenTwoDestinations(first_airport[0], second_airport[1], second_airport[0], second_airport[1])
+        
+        return response
     
     if method == "point_to_all":
 

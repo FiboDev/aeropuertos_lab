@@ -146,7 +146,7 @@ function AddEdge(airport_lat, airport_lon) {
                     // Draw the graph
                     DrawGraph();
                     // Movement anim. for new created line
-                    MoveAirplane([from, to]);
+                    MoveAirplane([from, to], 1000);
 
                     return;
                 }
@@ -228,7 +228,7 @@ function AddEdge(airport_lat, airport_lon) {
                     // Draw the graph
                     DrawGraph();
                     // Movement anim. for new created line
-                    MoveAirplane(response["vertices"]);
+                    MoveAirplane(response["vertices"], response["vertices"].length * 500);
 
                     return;
                     
@@ -273,7 +273,7 @@ function DelEdge(coords) {
 
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
 
-                console.log("Vuelo eliminada.");
+                console.log("Vuelo eliminado.");
             }
         }
 }
@@ -410,16 +410,18 @@ function Traversal(traversal_type) {
                         response = JSON.parse(xhr.response);
 
                         // Display the results in the results box
-                        console.log(response);
                         results_text.innerHTML = null;
                         for (let i = 0; i < response["airports"].length; i++) {
                             results_text.innerHTML += `<li>${response["airports"][i]}</li>`;
                         }
+
+                        // Move the airplane
+                        MoveAirplane(response["route"], response["route"].length * 500);
                         
                     }
                 }
 
-                // Block buttons until the end.
+                // Unblock buttons
                 const buttons = document.querySelectorAll('button');
                 for (let i = 0; i < buttons.length; i++) {
                     buttons[i].disabled = false;
@@ -444,6 +446,13 @@ function SinglePath() {
         return;
     }
 
+    // Block buttons until the end.
+    const buttons = document.querySelectorAll('button');
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].disabled = true;
+        buttons[i].style.background = "var(--secondary-color)";
+    }
+
     console.log("Haga clic en un aeropuerto inicial.");
 
     let isStart = true;
@@ -451,6 +460,8 @@ function SinglePath() {
     let start_marker;
     let end_marker;
     let on_selection = true;
+    let startPoint;
+    let endPoint;
 
     // Save last element clicked.
     document.onclick = e => {
@@ -510,12 +521,49 @@ function SinglePath() {
 
                     end_marker = marker_clicked;
 
-                    // Clean states
-                    map.closePopup();
-                    on_selection = false;
+                    // Check if the markers are the same
+                    if (start_marker == end_marker) {
+                        console.log("El aeropuerto de destino tiene que ser diferente.");
+                    } else {
+                        // Clean states
+                        map.closePopup();
+                        on_selection = false;
 
-                    console.log(start_marker);
-                    console.log(end_marker);
+                        // Look up for the coords of both markers
+                        map.eachLayer(function (layer) {
+                            try {
+                                if (layer._icon == start_marker) {
+                                    startPoint = [layer._latlng.lat, layer._latlng.lng];
+                                }
+                                if (layer._icon == end_marker) {
+                                    endPoint = [layer._latlng.lat, layer._latlng.lng];
+                                }
+                            }
+                            catch(e) {}
+                        });
+
+                        // Request to the server
+                        xhr.open("POST", "/api/v1", true);
+                        xhr.setRequestHeader("Content-Type", "application/json");
+                        xhr.send(JSON.stringify({"from": startPoint, "to": endPoint, "method": "point_to_point"}));
+                        xhr.onreadystatechange = function () {
+
+                        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+
+                            response = JSON.parse(xhr.response);
+
+                            
+                        }
+                        
+                    }
+
+                        // Unblock buttons
+                        const buttons = document.querySelectorAll('button');
+                        for (let i = 0; i < buttons.length; i++) {
+                            buttons[i].disabled = false;
+                            buttons[i].style.background = "var(--primary-color)";
+                        }
+                    }
 
 
                 }

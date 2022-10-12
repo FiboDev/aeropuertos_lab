@@ -64,7 +64,7 @@ def shortestPathBetweenTwoDestinations(latOrigin: float, longOrigin: float, latD
         #append to the coordinate list the name_paths´s names as coordinates
         coordinate_path.append(areopuertos.namesToCoordinates(name))
     #return a tuple 
-    return json.dumps(coordinate_path) , json.dumps(name_paths)
+    return {"route": coordinate_path , "airports": name_paths}
 
 def shortestPathToAllDestinations(latOrigin: float, longOrigin: float):
     #calculate the shortest path
