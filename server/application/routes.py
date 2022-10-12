@@ -23,27 +23,46 @@ def get_post():
     
     data = request.get_json()
     
-    print(request.args)
+    method = data.get("method")
     
-    #rectifica si es bfs  
-    
-    #recitifica si es dfs 
-    
-    #de un punto a otro 
-    
-    #de un punto a todos los demas
-    
-    
-    first_airport = data[0]
-    second_airport = data[1]
-
-    addVertex(first_airport[0], first_airport[1])
-    addVertex(second_airport[0], second_airport[1])
-    
-    response = addEdge(first_airport[0], first_airport[1], second_airport[0], second_airport[1]) 
-    
-    if response is None: 
+    if method == "add":
         
-        return "null"
+        first_airport = data.get("from")
+        second_airport = data.get("to")
+
+        addVertex(first_airport[0], first_airport[1])
+        addVertex(second_airport[0], second_airport[1])
     
-    return response 
+        response = addEdge(first_airport[0], first_airport[1], second_airport[0], second_airport[1]) 
+    
+        if response is None: 
+        
+            return "null"
+        
+        return response 
+    
+    if method == "bfs":
+        
+        ...
+    
+    if method == "dfs":
+        
+        ... 
+    
+    if method == "point_to_point":
+        
+        ... 
+    
+    if method == "point_to_all":
+
+        ... 
+    
+    if method == "remove_vertex":
+        
+        ... 
+    
+    if method == "remove_edge":
+        
+        ...
+    
+    return "response"

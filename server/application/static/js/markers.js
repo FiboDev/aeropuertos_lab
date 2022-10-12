@@ -86,7 +86,7 @@ function AddAirport(airport_name, airport_lat, airport_lon) {
 
         // Check if it is the same airport (from == to)
         if (from[0] == to[0] && from[1] == to[1]) {
-            console.log('Select a different airport');
+            console.log('Selecciona un aeropuerto distinto.');
             return;
         }
 
@@ -95,25 +95,22 @@ function AddAirport(airport_name, airport_lat, airport_lon) {
         var i = 0;
         while (i < graph.length) {
             if (JSON.stringify(graph[i]) == JSON.stringify(edge_to_check)) {
-                console.log('That flight already exists.');
+                console.log('Ese vuelo ya existe.');
                 return;
             }
             i++;
         }
 
         // XHRequest (Create nodes and establish connection)
-        var xhr = new XMLHttpRequest();
         xhr.open("POST", "/api/v1", true);
         xhr.setRequestHeader("Content-Type", "application/json")
-        xhr.send(JSON.stringify([from,to]))
+        xhr.send(JSON.stringify({"from": from, "to": to, "method": "add"}))
         xhr.onreadystatechange = function () {
 
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
 
                 //Server response
                 var response = JSON.parse(xhr.responseText);
-
-                console.log(response);
 
                 // CASES:
                 // If there's no route
@@ -133,16 +130,62 @@ function AddAirport(airport_name, airport_lat, airport_lon) {
                     // Push new changes to the graph
                     graph.push([from, to]);
                     distances.push(response);
+
                     // Draw the graph
                     DrawGraph();
-
                     // Movement anim. for new created line
                     MoveAirplane([from, to]);
+
                     return;
                 }
                 // If there's NO direct connection (response = route + distances)
                 if (typeof response == "object") {
-                    console.log(typeof response);
+                    console.log("No hay vuelo directo. Recalculando ruta...")
+                    isFirstSelected = true;
+
+                    // Stop indication
+                    clearInterval(blinking);
+
+                    for(let i = 0; i < response["vertices"].length; i++) {
+                        if (typeof response["vertices"][i+1] != "undefined") {
+                            // Create edges for recalculated route
+                            let new_line = [response["vertices"][i], response["vertices"][i+1]];
+                            let new_distance = response["distances"][i];
+
+                            // Verify if the edge already exists
+                            let edge_exists = false;
+                            let n = 0;
+                            while (n < graph.length) {
+                                if (JSON.stringify(graph[n]) == JSON.stringify(new_line)) {
+                                    edge_exists = true;
+                                }
+                                n++;
+                            }
+
+                            if (!edge_exists) {
+                                // Push changes
+                                graph.push(new_line);
+                                distances.push(new_distance);
+                            }
+                            
+                        }
+
+                        // Add each new vertex to selected markers on the map
+                        map.eachLayer(function (layer) {
+                            try {
+                                console.log(layer._latlng);
+                            }
+                            catch(e) {}
+                        });
+                    }
+
+                    // Draw the graph
+                    DrawGraph();
+                    // Movement anim. for new created line
+                    MoveAirplane(response["vertices"]);
+
+                    return;
+                    
                 }
 
                 

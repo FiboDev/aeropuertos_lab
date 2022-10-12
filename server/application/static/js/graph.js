@@ -8,6 +8,13 @@
 
 
 
+/* 
+    Requests
+*/
+var xhr = new XMLHttpRequest();
+////
+
+
 
 
 /* 
