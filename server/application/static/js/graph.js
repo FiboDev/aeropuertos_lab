@@ -308,4 +308,47 @@ function ClearGraph() {
         }
     }
 }
+
+// FUNCTIONS FROM THE PANEL
+
+// BFS traversal
+function BFSTraversal() {
+    console.log("Haga clic en un aeropuerto ya añadido.");
+
+    // Initial value from the last selected marker
+    let initialValue = lastMarkerSelected;
+
+    // Listener on change of that value.
+    let listener = setInterval(function() {
+        if (lastMarkerSelected != initialValue) {
+            // Check if the clicked marker is already added.
+            if (lastMarkerSelected.getAttribute("isadded") != "true") {
+                console.log("Solo debe ser un aeropuerto YA añadido. Haga clic de nuevo en el botón de recorrido.");
+                // Stop listening
+                clearInterval(listener);
+
+                return;
+            } else {
+                // Stop listening
+                clearInterval(listener);
+
+                console.log('xd');
+            }
+            
+        }
+    },100);
+
+    // let startPoint = lastMarkerSelected;
+
+    // // Get traversal from backend
+    // map.eachLayer(function (layer) {
+    //     try {
+    //         if (layer._icon == startPoint) {
+    //             console.log("Hay un punto de inicio!");
+    //         }
+           
+    //     }
+    //     catch(e) {}
+    // });
+}
 ////
