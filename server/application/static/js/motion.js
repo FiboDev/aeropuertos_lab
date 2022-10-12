@@ -11,6 +11,7 @@
     MAIN FUNCTION
 */
 function MoveAirplane(path, time) {
+
     var anim = L.motion.polyline(path, {
             color: "transparent"
             }, {

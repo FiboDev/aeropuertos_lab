@@ -542,6 +542,9 @@ function SinglePath() {
                             catch(e) {}
                         });
 
+                        console.log(startPoint);
+                        console.log(endPoint);
+
                         // Request to the server
                         xhr.open("POST", "/api/v1", true);
                         xhr.setRequestHeader("Content-Type", "application/json");
@@ -551,6 +554,7 @@ function SinglePath() {
                         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
 
                             response = JSON.parse(xhr.response);
+                            console.log(response);
 
                             
                         }

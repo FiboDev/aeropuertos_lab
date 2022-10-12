@@ -198,8 +198,7 @@ class airports:
                             if name == airport.name:
                                 accent_mark_list.append(airport.name_accent_mark)
                                 break
-
-                    print("esto es distance list", distance_list)
+                            
                     #create a dictionary that contains the coordinates and the distance of the new minimum path
                     dictionary = {}
                     dictionary = {'nombres_con_tildes':accent_mark_list, 'nombres':new_path, 'vertices': coordinate_list, 'distances': distance_list}
@@ -394,7 +393,6 @@ class airports:
     def shortest_paths_to_airports(self, latOrigin: float, longOrigin: float, pathlist: list):
         # get the path matrix
         path = pathlist
-        
         # search for the origin and destination airports in the airports list
         origin = self.search_airport_in_list(latOrigin, longOrigin)
         if origin is not None:

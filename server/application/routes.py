@@ -36,8 +36,6 @@ def get_post():
         addVertex(second_airport[0], second_airport[1])
     
         response = addEdge(first_airport[0], first_airport[1], second_airport[0], second_airport[1]) 
-        
-        printGraph()
     
         if response is None: 
         
@@ -72,7 +70,7 @@ def get_post():
         first_airport = data.get("from")
         second_airport = data.get("to")
         
-        response = shortestPathBetweenTwoDestinations(first_airport[0], second_airport[1], second_airport[0], second_airport[1])
+        response = shortestPathBetweenTwoDestinations(first_airport[0], first_airport[1], second_airport[0], second_airport[1])
         
         return response
     
