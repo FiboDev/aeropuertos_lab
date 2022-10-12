@@ -197,7 +197,7 @@ function AddEdge(airport_lat, airport_lon) {
                                         let airport_on_route = response["nombres_con_tildes"][i];
 
                                         // Set an ID to the selected marker
-                                        marker_on_route.setAttribute('id', `${airport_on_route}`);
+                                        marker_on_route.setAttribute('id', `airport_${airport_on_route}`);
 
                                         // If the markers is added, add isAdded flag
                                         marker_on_route.setAttribute('isadded', true);
@@ -434,5 +434,99 @@ function Traversal(traversal_type) {
             
         }
     }, 100);
+}
+
+// Less distance paths
+function SinglePath() {
+    // If there are less than 2 markers added to the graph
+    if (selected_markers.length < 2) {
+        console.log("Seleccione al menos dos aeropuertos antes de pulsar este botón.");
+        return;
+    }
+
+    console.log("Haga clic en un aeropuerto inicial.");
+
+    let isStart = true;
+    let marker_clicked;
+    let start_marker;
+    let end_marker;
+    let on_selection = true;
+
+    // Save last element clicked.
+    document.onclick = e => {
+        // If clicked on a marker (with a DIV tag)
+        if (e.target.tagName == 'DIV') {
+            for (let i = 0; i < markers.length; i++) {
+                if (e.target == markers[i]) {
+                    marker_clicked = e.target;
+                }
+            }
+        }
+
+        // If clicked on a marker icon (with a I tag)
+        else if (e.target.tagName == 'I') {
+            for (let i = 0; i < markers.length; i++) {
+                if (e.target.parentElement == markers[i]) {
+                    marker_clicked = e.target.parentElement;
+                }
+            }
+        }
+
+        // If something else is clicked
+        else {
+            marker_clicked = e.target;
+        }
+    }
+
+    // Get a click from the user
+    function getClick() {
+
+        return new Promise(acc => {
+            function handleClick() {
+            document.removeEventListener('click', handleClick);
+            acc();
+            }
+            document.addEventListener('click', handleClick);
+
+            // Omit popups on markers
+            map.closePopup();
+        });
+    }
+
+    // Hold the user until it gives two clicks on markers
+    setTimeout(async function() {
+        while(on_selection) {
+            await getClick(); // Wait for a user click...
+
+            if (marker_clicked.getAttribute("isadded") == "true") {
+                // For the first airport
+                if (isStart) {
+                    isStart = false;
+                    start_marker = marker_clicked;
+                    console.log('Ahora, haga clic en un aeropuerto de destino.');
+                
+                } else {
+                    // Code to exec after click event:
+
+                    end_marker = marker_clicked;
+
+                    // Clean states
+                    map.closePopup();
+                    on_selection = false;
+
+                    console.log(start_marker);
+                    console.log(end_marker);
+
+
+                }
+
+
+            // Try again for the user
+            } else {
+                console.log("Solo haga clic en aeropuerto YA añadido previamente.");
+            }
+        }
+    },100);
+
 }
 ////
