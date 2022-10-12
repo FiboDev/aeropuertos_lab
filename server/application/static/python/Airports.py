@@ -128,56 +128,62 @@ class airports:
         return False
 
     def add_adjacency(self, latOrigin: float, longOrigin: float, latDest: float, longDest: float):
-        # check if the adjacency vertex is in the graph
-        
-        if self.is_vertex_in_graph(latOrigin, longOrigin) and self.is_vertex_in_graph(latDest, longDest):
-            # search for the airport in the airport list
-            airport = self.search_airport_in_list(latOrigin, longOrigin)
-            # search for the destination airport in the airport connections list
-            for connection in airport.connections:
-                # when the destination airport is found
-                if connection.latitude == latDest and connection.longitude == longDest:
-                    # calculate the distance between the airports using the vincenty formula
-                    distance = vincenty(
-                        (latOrigin, longOrigin), (latDest, longDest))
-                    # update the adjacency list of the origin airport
-                    airport.adjacency_list.update(
-                        {connection.name: distance})
-                    # update the adjacency list of the destination airport in the graph
-                    self.graph.update({airport.name: airport.adjacency_list.copy()})
-                    return distance 
+            # check if the adjacency vertex is in the graph
             
-            new_path = []
-            # if the connection can not be established, find the minor distance between the airports
-            for key in self.shortest_paths:
-                if key == self.coordinatesToName(latOrigin, longOrigin):
-                    for key2 in self.shortest_paths[key]:
-                        if key2 == self.coordinatesToName(latDest, longDest):
-                             new_path = self.shortest_paths[key][key2]
-            if len(new_path) == 0:
-                return None
-            else:
-                #add the new vertex to the graph
-                for name in new_path:
-                    coordinates = self.namesToCoordinates(name)
-                    self.add_airport_vertex(coordinates[0], coordinates[1])
+            if self.is_vertex_in_graph(latOrigin, longOrigin) and self.is_vertex_in_graph(latDest, longDest):
+                # search for the airport in the airport list
+                airport = self.search_airport_in_list(latOrigin, longOrigin)
+                # search for the destination airport in the airport connections list
+                for connection in airport.connections:
+                    # when the destination airport is found
+                    if connection.latitude == latDest and connection.longitude == longDest:
+                        # calculate the distance between the airports using the vincenty formula
+                        distance = vincenty(
+                            (latOrigin, longOrigin), (latDest, longDest))
+                        # update the adjacency list of the origin airport
+                        airport.adjacency_list.update(
+                            {connection.name: distance})
+                        # update the adjacency list of the destination airport in the graph
+                        self.graph.update({airport.name: airport.adjacency_list.copy()})
+                        return distance 
+                
+                new_path = []
+                # if the connection can not be established, find the minor distance between the airports
+                for key in self.shortest_paths:
+                    if key == self.coordinatesToName(latOrigin, longOrigin):
+                        for key2 in self.shortest_paths[key]:
+                            if key2 == self.coordinatesToName(latDest, longDest):
+                                new_path = self.shortest_paths[key][key2]
+                if len(new_path) == 0:
+                    return None
+                else:
+                    #add the new vertex to the graph
+                    for name in new_path:
+                        coordinates = self.namesToCoordinates(name)
+                        self.add_airport_vertex(coordinates[0], coordinates[1])
 
-                #add the new adjacency to the graph
-                for i in range(len(new_path)-1):
 
-                    lat1 = self.namesToCoordinates(new_path[i])[0]
-                    long1 = self.namesToCoordinates(new_path[i])[1]
-                    lat2 = self.namesToCoordinates(new_path[i+1])[0]
-                    long2 = self.namesToCoordinates(new_path[i+1])[1]
+                    #add the new adjacency to the graph
+                    distance_list = []
+                    for i in range(len(new_path)-1):
 
-                    self.add_adjacency(lat1, long1, lat2, long2)
+                        lat1 = self.namesToCoordinates(new_path[i])[0]
+                        long1 = self.namesToCoordinates(new_path[i])[1]
+                        lat2 = self.namesToCoordinates(new_path[i+1])[0]
+                        long2 = self.namesToCoordinates(new_path[i+1])[1]
+
+                        distance = self.add_adjacency(lat1, long1, lat2, long2)
+                        distance_list.append(distance)
+
+                    #create a coordinate list
+                    coordinate_list = []
+                    for name in new_path:
+                        coordinate_list.append(list(self.namesToCoordinates(name)))
                     
-                coordinate_list = []
-                for name in new_path:
-                    coordinate_list.append(list(self.namesToCoordinates(name)))
-
-                return coordinate_list
-
+                    #create a dictionary that contains the coordinates and the distance of the new minimum path
+                    dictionary = {}
+                    dictionary = {'vertices': coordinate_list, 'distances': distance_list}
+                    return  dictionary
 
     def remove_airport_vertex(self, latitude: float, longitude: float):
         # search for the airport in the airports list

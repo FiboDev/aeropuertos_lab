@@ -116,27 +116,36 @@ function AddAirport(airport_name, airport_lat, airport_lon) {
                 console.log(response);
 
                 // CASES:
-                // If direct flight doesnt exist
-                if (response["distance"] == "null") {
+                // If there's no route
+                if (response == "null") {
                     console.log('No hay vuelo directo.');
                     isFirstSelected = true;
                     clearInterval(blinking);
                     return;
                 }
+                // If there's a direct connection (response = distance)
+                if (typeof response == "number") {
+                    isFirstSelected = true;
 
-                isFirstSelected = true;
+                    // Stop indication
+                    clearInterval(blinking);
 
-                // Stop indication
-                clearInterval(blinking);
+                    // Push new changes to the graph
+                    graph.push([from, to]);
+                    distances.push(response);
+                    // Draw the graph
+                    DrawGraph();
 
-                // Push new changes to the graph
-                graph.push([from, to]);
-                distances.push(response["distance"]);
-                // Draw the graph
-                DrawGraph();
+                    // Movement anim. for new created line
+                    MoveAirplane([from, to]);
+                    return;
+                }
+                // If there's NO direct connection (response = route + distances)
+                if (typeof response == "object") {
+                    console.log(typeof response);
+                }
 
-                // Movement anim. for new created line
-                MoveAirplane([from, to]);
+                
             }
         }
 
