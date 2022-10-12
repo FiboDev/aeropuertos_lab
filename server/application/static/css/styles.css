@@ -203,9 +203,13 @@ html {
     width: 100%;
     height: 270px;
 
-    padding: 10px;
-    padding-right: 20px;
+    padding-top: 10px;
+    padding-right: 10px;
 
     overflow-y: scroll;
     scrollbar-color: var(--primary-color) transparent;
+}
+
+.tools .tools-container section .results ul li {
+    color: var(--secondary-color);
 }

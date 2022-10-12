@@ -11,6 +11,8 @@ from application.static.python.main import *
 @app.route("/")
 def root():
     
+    resetProgram()
+    printGraph()
     return render_template("index.html")
 
 @app.route("/api/v1/", methods = ["GET"])
@@ -34,6 +36,8 @@ def get_post():
         addVertex(second_airport[0], second_airport[1])
     
         response = addEdge(first_airport[0], first_airport[1], second_airport[0], second_airport[1]) 
+        
+        printGraph()
     
         if response is None: 
         
@@ -41,13 +45,27 @@ def get_post():
         
         return response 
     
-    if method == "bfs":
+    if method == "BFS":
         
-        ...
+        lat = data.get("lat")
+        lon = data.get("lon")
+        
+        response = BFS(lat, lon)
+        
+        print(f"esta es mi respuesta: {response}")
+        
+        return response
     
-    if method == "dfs":
+    if method == "DFS":
         
-        ... 
+        lat = data.get("lat")
+        lon = data.get("lon")
+        
+        response = DFS(lat, lon)
+        
+        print(f"esta es mi respuesta: {response}")
+        
+        return response
     
     if method == "point_to_point":
         

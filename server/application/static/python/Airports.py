@@ -97,6 +97,14 @@ class airports:
                         if airport.connections[i] == airportNode.name:
                             airport.connections[i] = airportNode
                             break
+                            
+    def resetProgram(self):
+        #clear the current graph
+        self.graph.clear()
+
+        #clear the adjacency lists of the airports
+        for airport in self.airports_list:
+            airport.adjacency_list.clear()
 
     def search_airport_in_list(self, latitude: float, longitude: float) -> AirportNode:
         # iterate through the list of airports

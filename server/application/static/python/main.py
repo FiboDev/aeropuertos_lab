@@ -14,6 +14,13 @@ def removeVertex(latitude: float, longitude: float):
 def addEdge(latOrigin: float, longOrigin: float, latDest: float, longDest: float):  
     return json.dumps(areopuertos.add_adjacency(latOrigin, longOrigin, latDest, longDest))
 
+def resetProgram():
+    areopuertos.resetProgram()
+
+def printGraph(): 
+    
+    print(areopuertos.graph) 
+
 def removeEdge(latOrigin: float, longOrigin: float, latDest: float, longDest: float):
     areopuertos.remove_adjacency(latOrigin, longOrigin, latDest, longDest)
 
@@ -28,8 +35,8 @@ def DFS(latOrigin: float, longOrigin: float):
     for name in traversal:
         #append to the coordinate list the traversal´s names as coordinates
         coordinate_path.append(areopuertos.namesToCoordinates(name))
-    #return a tuple
-    return json.dumps(coordinate_path), json.dumps(traversal)
+    #return a dict
+    return {"route": coordinate_path, "airports": traversal}
 
 def BFS(latOrigin: float, longOrigin: float):
     #create a coordinate list
@@ -42,8 +49,8 @@ def BFS(latOrigin: float, longOrigin: float):
     for name in traversal:
         #append to the coordinate list the traversal´s names as coordinates
         coordinate_path.append(areopuertos.namesToCoordinates(name))
-    #return a tuple
-    return json.dumps(coordinate_path), json.dumps(traversal)
+    #return a dict
+    return {"route": coordinate_path, "airports": traversal}
 
 def shortestPathBetweenTwoDestinations(latOrigin: float, longOrigin: float, latDest: float, longDest: float):
     #calculate the shortest path

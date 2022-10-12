@@ -88,11 +88,13 @@
                                     </div>
                                     <p>Haga clic en cualquier de los 2 botones y siga las instrucciones:</p>
                                     <div class="buttons">
-                                        <button onclick="BFSTraversal()">Recorrido BFS</button>
-                                        <button>Recorrido DFS</button>
+                                        <button onclick="Traversal('BFS')">Recorrido BFS</button>
+                                        <button onclick="Traversal('DFS')">Recorrido DFS</button>
                                     </div>
                                     <p>Resultados:</p>
-                                    <div class="results"></div>
+                                    <div class="results">
+                                        <ul id="results-traversal"></ul>
+                                    </div>
                                 </section>
     
                                 <section class="tool paths">
@@ -105,7 +107,9 @@
                                         <button>De un punto a los demás</button>
                                     </div>
                                     <p>Resultados:</p>
-                                    <div class="results"></div>
+                                    <div class="results">
+                                        <p id="results-paths"></p>
+                                    </div>
                                 </section>
                             </div>
                             

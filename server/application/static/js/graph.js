@@ -312,39 +312,53 @@ function ClearGraph() {
 // FUNCTIONS FROM THE PANEL
 
 // BFS traversal
-function BFSTraversal() {
-    console.log("Haga clic en un aeropuerto ya añadido.");
+function Traversal(traversal_type) {
+    
+    console.log("Haga clic en un aeropuerto inicial para empezar el recorrido.");
 
-    let on_selection = true;
     let marker_clicked;
+    let on_selection = true;
+    let startPoint;
+    var results_text = document.getElementById("results-traversal");
+
+    // Save last element clicked.
+    document.onclick = e => {
+        // If clicked on a marker (with a DIV tag)
+        if (e.target.tagName == 'DIV') {
+            for (let i = 0; i < markers.length; i++) {
+                if (e.target == markers[i]) {
+                    marker_clicked = e.target;
+                }
+            }
+        }
+
+        // If clicked on a marker icon (with a I tag)
+        else if (e.target.tagName == 'I') {
+            for (let i = 0; i < markers.length; i++) {
+                if (e.target.parentElement == markers[i]) {
+                    marker_clicked = e.target.parentElement;
+                }
+            }
+        }
+
+        // If something else is clicked
+        else {
+            marker_clicked = e.target;
+        }
+    }
 
     // Get a click from the user
     function getClick() {
+
         return new Promise(acc => {
-          function handleClick() {
+            function handleClick() {
             document.removeEventListener('click', handleClick);
             acc();
-          }
-          document.addEventListener('click', handleClick);
-          document.onclick = e => { // Save last element clicked
-            // If clicked on a marker (with a DIV tag)
-            if (e.target.tagName == 'DIV') {
-                for (let i = 0; i < markers.length; i++) {
-                    if (e.target == markers[i]) {
-                        marker_clicked = e.target;
-                    }
-                }
             }
+            document.addEventListener('click', handleClick);
 
-            // If clicked on a marker icon (with a I tag)
-            if (e.target.tagName == 'I') {
-                for (let i = 0; i < markers.length; i++) {
-                    if (e.target.parentElement == markers[i]) {
-                        marker_clicked = e.target.parentElement;
-                    }
-                }
-            }
-          } 
+            // Omit popups on markers
+            map.closePopup();
         });
     }
 
@@ -352,31 +366,54 @@ function BFSTraversal() {
     setTimeout(async function () {
         while(on_selection) {
             await getClick(); // Wait for a user click...
-            
-            try {
-                if (marker_clicked.getAttribute("isadded") == "true") {
-                    on_selection = false;
-                    console.log("Selección correcta!");
-                } else{
-                    console.log("Haga clic en un aeropuerto 'NARANJA'.");
+
+            if (marker_clicked.getAttribute("isadded") == "true") {
+
+                // Clean states
+                map.closePopup();
+                on_selection = false;
+
+                // Code to exec after click event:
+
+                // Look up for the coordinates of the start point.
+                map.eachLayer(function (layer) {
+                    try {
+                        if (layer._icon == marker_clicked) {
+                            startPoint = [layer._latlng.lat, layer._latlng.lng];
+                        }
+                    
+                    }
+                    catch(e) {}
+                });
+
+                // Depending on traversal type do BFS or DFS
+
+                xhr.open("POST", "/api/v1", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.send(JSON.stringify({"lat": startPoint[0], "lon": startPoint[1], "method": traversal_type}));
+                xhr.onreadystatechange = function () {
+
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+
+                        response = JSON.parse(xhr.response);
+
+                        // Display the results in the results box
+                        console.log(response);
+                        results_text.innerHTML = null;
+                        for (let i = 0; i < response["airports"].length; i++) {
+                            results_text.innerHTML += `<li>${response["airports"][i]}</li>`;
+                        }
+                        
+                    }
                 }
-            } catch (e) {}
+                
+
+            // Try again for the user
+            } else {
+                console.log("Solo haga clic en aeropuerto YA añadido previamente.");
+            }
             
         }
     }, 100);
-    
-
-    // let startPoint = lastMarkerSelected;
-
-    // // Get traversal from backend
-    // map.eachLayer(function (layer) {
-    //     try {
-    //         if (layer._icon == startPoint) {
-    //             console.log("Hay un punto de inicio!");
-    //         }
-           
-    //     }
-    //     catch(e) {}
-    // });
 }
 ////
