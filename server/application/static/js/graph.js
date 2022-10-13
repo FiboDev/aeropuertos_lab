@@ -690,8 +690,6 @@ function OneToAllPaths() {
                     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
 
                         response = JSON.parse(xhr.response);
-
-                        console.log(response);
                         
                         // Display the results in the textbox
                         let airports = response[1];
@@ -705,9 +703,20 @@ function OneToAllPaths() {
                             }
                         }
 
-                        for (let i = 0; i < routes.length; i++) {
-                            MoveAirplane(routes[i], routes[i].length * 500);
+                        // Add a timer for each route to complete
+                        const timer = ms => new Promise(res => setTimeout(res, ms))
+
+                        async function MoveRoutes() { // Loop
+                            for (let i = 0; i < routes.length; i++) {
+                                MoveAirplane(routes[i], routes[i].length * 500);
+                                await timer(routes[i].length * 500); // Promise can be awaited
+                            }
                         }
+
+                        // Move the airplane in different routes at different times
+                        MoveRoutes();
+
+                        ShowAlert("Vea los resultados en el mapa y el panel.",'info', 4000);
 
                     }
                 }
