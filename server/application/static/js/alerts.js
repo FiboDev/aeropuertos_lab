@@ -6,14 +6,27 @@
 */
 
 function ShowAlert(message, type, time) {
+    let width, position, showConfirmButton;
+
+    if (window.innerWidth > 810) {
+        width = '25%';
+        position = 'bottom-start';
+        showConfirmButton = true;
+    } else {
+        width = '80%';
+        position = 'bottom';
+        showConfirmButton = false;
+    }
+
     Swal.fire({
         icon: type,
         title: message,
         timer: time,
-        width: '20%',
+        width: width,
         toast: true,
         confirmButtonText: 'Ok',
-        position: 'bottom-start',
+        position: position,
+        showConfirmButton: showConfirmButton,
         stopKeydownPropagation: false,
         customClass: {
             confirmButton: 'sw-confirmButton',

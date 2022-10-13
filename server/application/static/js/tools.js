@@ -27,3 +27,15 @@ function CopyResultsTraversal() {
 
     ShowAlert('Copiado en el portapapeles','info',2000);
 }
+
+function CopyResultsPaths() {
+    var results_text = document.getElementById("results-path");
+
+    if (results_text.textContent == '') {
+        return;
+    }
+
+    navigator.clipboard.writeText(results_text.textContent);
+
+    ShowAlert('Copiado en el portapapeles','info',2000);
+}
