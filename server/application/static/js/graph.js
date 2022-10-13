@@ -595,4 +595,139 @@ function SinglePath() {
     },100);
 
 }
+
+// Less distance path between one point and the others
+function OneToAllPaths() {
+    // If there are NO markers added to the graph
+    if (selected_markers.length == 0) {
+        ShowAlert("Seleccione al menos un aeropuerto antes de pulsar este botón.", 'error', 2000);
+        return;
+    }
+
+    // Block buttons until the end.
+    const buttons = document.querySelectorAll('.tool-button');
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].disabled = true;
+        buttons[i].style.background = "var(--secondary-color)";
+    }
+
+    ShowAlert("Haga clic en un aeropuerto inicial para indicar las rutas.", 'info', 5000);
+
+    let marker_clicked;
+    let on_selection = true;
+    let startPoint;
+    var results_text = document.getElementById("results-path");
+
+    // Save last element clicked.
+    document.onclick = e => {
+        // If clicked on a marker (with a DIV tag)
+        if (e.target.tagName == 'DIV') {
+            for (let i = 0; i < markers.length; i++) {
+                if (e.target == markers[i]) {
+                    marker_clicked = e.target;
+                }
+            }
+        }
+
+        // If clicked on a marker icon (with a I tag)
+        else if (e.target.tagName == 'I') {
+            for (let i = 0; i < markers.length; i++) {
+                if (e.target.parentElement == markers[i]) {
+                    marker_clicked = e.target.parentElement;
+                }
+            }
+        }
+
+        // If something else is clicked
+        else {
+            marker_clicked = e.target;
+        }
+
+        // Omit popups on markers
+        map.closePopup();
+    }
+
+    // Get a click from the user
+    function getClick() {
+
+        return new Promise(acc => {
+            function handleClick() {
+            document.removeEventListener('click', handleClick);
+            acc();
+            }
+            document.addEventListener('click', handleClick);
+        });
+    }
+
+    setTimeout(async function () {
+        while(on_selection) {
+            await getClick(); // Wait for a user click...
+
+            if (marker_clicked.getAttribute("isadded") == "true") {
+
+                // Clean states
+                on_selection = false;
+
+                // Code to exec after click event:
+
+                // Look up for the coordinates of the start point.
+                map.eachLayer(function (layer) {
+                    try {
+                        if (layer._icon == marker_clicked) {
+                            startPoint = [layer._latlng.lat, layer._latlng.lng];
+                        }
+                    
+                    }
+                    catch(e) {}
+                });
+
+                // Request
+                xhr.open("POST", "/api/v1", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.send(JSON.stringify({"lat": startPoint[0], "lon": startPoint[1], "method": "point_to_all"}));
+                xhr.onreadystatechange = function () {
+
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+
+                        response = JSON.parse(xhr.response);
+
+                        console.log(response);
+                        
+                        // Display the results in the textbox
+                        let airports = response[1];
+                        let routes = response[0];
+
+                        results_text.innerHTML = '';
+                        for (let i = 0; i < airports.length; i++) {
+                            results_text.innerHTML += `<p style="font-weight: bold;">Camino ${i+1}<p>`;
+                            for (let n = 0; n < airports[i].length; n++) {
+                                results_text.innerHTML += `<li>${airports[i][n]}</li>`;
+                            }
+                        }
+
+                        for (let i = 0; i < routes.length; i++) {
+                            MoveAirplane(routes[i], routes[i].length * 500);
+                        }
+
+                    }
+                }
+                
+
+                // Unblock buttons
+                const buttons = document.querySelectorAll('.tool-button');
+                for (let i = 0; i < buttons.length; i++) {
+                    buttons[i].disabled = false;
+                    buttons[i].style.background = "var(--primary-color)";
+                }
+
+                document.onclick = null;
+                
+
+            // Try again for the user
+            } else {
+                ShowAlert("Solo haga clic en aeropuerto YA añadido previamente.", 'warning', 2000);
+            }
+        }
+    }, 100);
+}
 ////

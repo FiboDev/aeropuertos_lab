@@ -197,10 +197,6 @@ html {
     border: none;
 }
 
-.tools .tools-container section .buttons button:hover {
-    background: #ec6452;
-}
-
 .tools .tools-container section .results {
     border: 1px solid #c2c2c2;
     border-radius: 5px;

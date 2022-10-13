@@ -63,25 +63,34 @@ def shortestPathBetweenTwoDestinations(latOrigin: float, longOrigin: float, latD
     for name in name_paths:
         #append to the coordinate list the name_paths´s names as coordinates
         coordinate_path.append(areopuertos.namesToCoordinates(name))
-    #return a tuple 
+    #return a dict 
     return {"route": coordinate_path , "airports": name_paths}
 
 def shortestPathToAllDestinations(latOrigin: float, longOrigin: float):
     #calculate the shortest path
     path = areopuertos.floyd_warshall()
-    #create a coordinate dictionary
-    coordinate_path = {}
+    #create a coordinates list
+    coordinate_list = []
+    #create a names list
+    names_list = []
     #get the path
     paths = areopuertos.shortest_paths_to_airports(latOrigin, longOrigin, path)
+
     #iterate over the path
     for name in paths:
-        #create a coordinate list
-        coordinate_list = []
-        #iterate over the path´s names
-        for names in paths[name]:
-            #append to the coordinate list the name_paths´s names as coordinates
-            coordinate_list.append(areopuertos.namesToCoordinates(names))
-        #append to the coordinate dictionary the name_paths´s names and the key itself as coordinates
-        coordinate_path.update({str(areopuertos.namesToCoordinates(name)): coordinate_list})
-    #return a tuple
-    return json.dumps(coordinate_path), json.dumps(paths)
+        #append to a list the name paths´s names
+        names_list.append(paths[name])
+    
+    #convert the names list as a coordinates list
+    for list in names_list:
+        coordinates = []
+        for name in list:
+            coordinates.append(areopuertos.namesToCoordinates(name))
+        coordinate_list.append(coordinates)  
+    
+    #add both list to a general list
+    list = []
+    list.append(coordinate_list)
+    list.append(names_list)
+
+    return json.dumps(list)

@@ -78,7 +78,14 @@ def get_post():
     
     if method == "point_to_all":
 
-        ... 
+        lat = data.get("lat")
+        lon = data.get("lon")
+        
+        response = shortestPathToAllDestinations(lat, lon)
+        
+        print(response)
+        
+        return response
     
     if method == "remove_vertex":
         
