@@ -690,6 +690,8 @@ function OneToAllPaths() {
                     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
 
                         response = JSON.parse(xhr.response);
+
+                        console.log(response);
                         
                         // Display the results in the textbox
                         let airports = response[1];
@@ -702,11 +704,14 @@ function OneToAllPaths() {
                             return;
                         }
 
-                        
+                        let index_path = 1;
                         for (let i = 0; i < airports.length; i++) {
-                            results_text.innerHTML += `<p style="font-weight: bold;">Camino ${i+1}<p>`;
-                            for (let n = 0; n < airports[i].length; n++) {
-                                results_text.innerHTML += `<li>${airports[i][n]}</li>`;
+                            if (airports[i].length != 0) {
+                                results_text.innerHTML += `<p style="font-weight: bold;">Camino ${index_path}<p>`;
+                                for (let n = 0; n < airports[i].length; n++) {
+                                    results_text.innerHTML += `<li>${airports[i][n]}</li>`;
+                                }
+                                index_path++;
                             }
                         }
 
@@ -715,8 +720,10 @@ function OneToAllPaths() {
 
                         async function MoveRoutes() { // Loop
                             for (let i = 0; i < routes.length; i++) {
-                                MoveAirplane(routes[i], routes[i].length * 500);
-                                await timer(routes[i].length * 500); // Promise can be awaited
+                                if (routes[i].length != 0) {
+                                    MoveAirplane(routes[i], routes[i].length * 500);
+                                    await timer(routes[i].length * 500); // Promise can be awaited
+                                }
                             }
                         }
 
