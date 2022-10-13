@@ -14,6 +14,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
     <script src="https://kit.fontawesome.com/51a9d021a9.js" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
@@ -88,8 +89,8 @@
                                     </div>
                                     <p>Haga clic en cualquier de los 2 botones y siga las instrucciones:</p>
                                     <div class="buttons">
-                                        <button onclick="Traversal('BFS')">Recorrido BFS</button>
-                                        <button onclick="Traversal('DFS')">Recorrido DFS</button>
+                                        <button class="tool-button" onclick="Traversal('BFS')">Recorrido BFS</button>
+                                        <button class="tool-button" onclick="Traversal('DFS')">Recorrido DFS</button>
                                     </div>
                                     <p>Resultados <i id="copy-traversal" class="fa-regular fa-copy" onclick="CopyResultsTraversal()"></i></p>
                                     <div class="results">
@@ -103,8 +104,8 @@
                                     </div>
                                     <p>Haga clic en cualquier de los 2 botones y vea el camino de menor distancia:</p>
                                     <div class="buttons">
-                                        <button onclick="SinglePath()">De un punto a otro</button>
-                                        <button>De un punto a los demás</button>
+                                        <button class="tool-button" onclick="SinglePath()">De un punto a otro</button>
+                                        <button class="tool-button">De un punto a los demás</button>
                                     </div>
                                     <p>Resultados:</p>
                                     <div class="results">
@@ -119,7 +120,7 @@
                 </div>
             </div>
 
-            
+
         
 </body>
 <script>    
@@ -1509,3 +1510,4 @@
 <script src="../static/js/graph.js"></script>
 <script src="../static/js/markers.js"></script>
 <script src="../static/js/motion.js"></script>
+<script src="../static/js/alerts.js"></script>

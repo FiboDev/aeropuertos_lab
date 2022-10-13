@@ -1,5 +1,5 @@
 /*
-    In this file you'll find the creation of the graph.
+    In this file you'll find the creation of the graph (only to draw with JS).
 
     Reference(s):
     -- Arrows on leaflet.js: https://github.com/slutske22/leaflet-arrowheads
@@ -320,7 +320,7 @@ function Traversal(traversal_type) {
     }
 
     // Block buttons until the end.
-    const buttons = document.querySelectorAll('button');
+    const buttons = document.querySelectorAll('.tool-button');
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].disabled = true;
         buttons[i].style.background = "var(--secondary-color)";
@@ -357,6 +357,9 @@ function Traversal(traversal_type) {
         else {
             marker_clicked = e.target;
         }
+
+        // Omit popups on markers
+        map.closePopup();
     }
 
     // Get a click from the user
@@ -368,9 +371,6 @@ function Traversal(traversal_type) {
             acc();
             }
             document.addEventListener('click', handleClick);
-
-            // Omit popups on markers
-            map.closePopup();
         });
     }
 
@@ -382,7 +382,6 @@ function Traversal(traversal_type) {
             if (marker_clicked.getAttribute("isadded") == "true") {
 
                 // Clean states
-                map.closePopup();
                 on_selection = false;
 
                 // Code to exec after click event:
@@ -422,11 +421,13 @@ function Traversal(traversal_type) {
                 }
 
                 // Unblock buttons
-                const buttons = document.querySelectorAll('button');
+                const buttons = document.querySelectorAll('.tool-button');
                 for (let i = 0; i < buttons.length; i++) {
                     buttons[i].disabled = false;
                     buttons[i].style.background = "var(--primary-color)";
                 }
+
+                document.onclick = null;
                 
 
             // Try again for the user
@@ -447,7 +448,7 @@ function SinglePath() {
     }
 
     // Block buttons until the end.
-    const buttons = document.querySelectorAll('button');
+    const buttons = document.querySelectorAll('.tool-button');
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].disabled = true;
         buttons[i].style.background = "var(--secondary-color)";
@@ -487,6 +488,9 @@ function SinglePath() {
         else {
             marker_clicked = e.target;
         }
+
+        // Omit popups on markers
+        map.closePopup();
     }
 
     // Get a click from the user
@@ -498,9 +502,6 @@ function SinglePath() {
             acc();
             }
             document.addEventListener('click', handleClick);
-
-            // Omit popups on markers
-            map.closePopup();
         });
     }
 
@@ -525,8 +526,7 @@ function SinglePath() {
                     if (start_marker == end_marker) {
                         console.log("El aeropuerto de destino tiene que ser diferente.");
                     } else {
-                        // Clean states
-                        map.closePopup();
+                        // Clean state
                         on_selection = false;
 
                         // Look up for the coords of both markers
@@ -542,31 +542,29 @@ function SinglePath() {
                             catch(e) {}
                         });
 
-                        console.log(startPoint);
-                        console.log(endPoint);
-
                         // Request to the server
                         xhr.open("POST", "/api/v1", true);
                         xhr.setRequestHeader("Content-Type", "application/json");
                         xhr.send(JSON.stringify({"from": startPoint, "to": endPoint, "method": "point_to_point"}));
                         xhr.onreadystatechange = function () {
 
-                        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
 
-                            response = JSON.parse(xhr.response);
-                            console.log(response);
-
-                            
-                        }
+                                response = JSON.parse(xhr.response);
+                                console.log(response);
+                                
+                            }
                         
-                    }
+                        }
 
                         // Unblock buttons
-                        const buttons = document.querySelectorAll('button');
+                        const buttons = document.querySelectorAll('.tool-button');
                         for (let i = 0; i < buttons.length; i++) {
                             buttons[i].disabled = false;
                             buttons[i].style.background = "var(--primary-color)";
                         }
+
+                        document.onclick = null;
                     }
 
 

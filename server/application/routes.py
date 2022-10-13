@@ -36,6 +36,8 @@ def get_post():
         addVertex(second_airport[0], second_airport[1])
     
         response = addEdge(first_airport[0], first_airport[1], second_airport[0], second_airport[1]) 
+        
+        printGraph()
     
         if response is None: 
         

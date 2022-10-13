@@ -217,3 +217,18 @@ html {
 .tools .tools-container section .results ul li {
     color: var(--secondary-color);
 }
+
+/* ============= SWEET ALERT STYLES ============= */
+
+.sw-confirmButton {
+    width: 25%;
+    height: 25px;
+    border: none;
+    background: #d13d29;
+    color: white;
+    /* font-weight: bold; */
+}
+
+.sw-title {
+    color: #575757;
+}
