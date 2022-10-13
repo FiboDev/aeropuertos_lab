@@ -110,7 +110,7 @@ function DelAirport(airport_name, airport_lat, airport_lon) {
         xhr.onreadystatechange = function () {
 
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                console.log("Aeropuerto eliminado.");
+                ShowAlert('Aeropuerto eliminado','info',2000);
             }
         }
 

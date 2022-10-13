@@ -98,7 +98,7 @@ function AddEdge(airport_lat, airport_lon) {
 
         // Check if it is the same airport (from == to)
         if (from[0] == to[0] && from[1] == to[1]) {
-            console.log('Selecciona un aeropuerto distinto.');
+            ShowAlert('Selecciona un aeropuerto distinto.', 'error', 2000);
             return;
         }
 
@@ -107,7 +107,7 @@ function AddEdge(airport_lat, airport_lon) {
         var i = 0;
         while (i < graph.length) {
             if (JSON.stringify(graph[i]) == JSON.stringify(edge_to_check)) {
-                console.log('Ese vuelo ya existe.');
+                ShowAlert('Ese vuelo ya existe.', 'error', 2000)
                 return;
             }
             i++;
@@ -127,7 +127,7 @@ function AddEdge(airport_lat, airport_lon) {
                 // CASES:
                 // If there's no route
                 if (response == "null") {
-                    console.log('No hay vuelo directo.');
+                    ShowAlert('No hay vuelo.','error',2000);
                     isFirstSelected = true;
                     clearInterval(blinking);
                     return;
@@ -152,7 +152,7 @@ function AddEdge(airport_lat, airport_lon) {
                 }
                 // If there's NO direct connection (response = route + distances)
                 if (typeof response == "object") {
-                    console.log("No hay vuelo directo. Recalculando ruta...")
+                    ShowAlert("No hay vuelo directo. Recalculando ruta más corta...",'warning',4000);
                     isFirstSelected = true;
 
                     // Stop indication
@@ -272,8 +272,7 @@ function DelEdge(coords) {
         xhr.onreadystatechange = function () {
 
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-
-                console.log("Vuelo eliminado.");
+                ShowAlert('Vuelo eliminado.', 'warning', 2000);
             }
         }
 }
@@ -315,7 +314,7 @@ function ClearGraph() {
 function Traversal(traversal_type) {
     // If there are no markers added to the graph
     if (selected_markers.length == 0) {
-        console.log("Seleccione al menos un aeropuerto antes de pulsar este botón.");
+        ShowAlert("Seleccione al menos un aeropuerto antes de pulsar este botón.", 'error', 2000)
         return;
     }
 
@@ -326,7 +325,7 @@ function Traversal(traversal_type) {
         buttons[i].style.background = "var(--secondary-color)";
     }
     
-    console.log("Haga clic en un aeropuerto inicial para empezar el recorrido.");
+    ShowAlert("Haga clic en un aeropuerto inicial para empezar el recorrido.", 'info', 5000);
 
     let marker_clicked;
     let on_selection = true;
@@ -414,8 +413,7 @@ function Traversal(traversal_type) {
                             results_text.innerHTML += `<li>${response["airports"][i]}</li>`;
                         }
 
-                        // Move the airplane
-                        MoveAirplane(response["route"], response["route"].length * 500);
+                        ShowAlert("Vea los resultados en el panel.",'info',4000);
                         
                     }
                 }
@@ -432,7 +430,7 @@ function Traversal(traversal_type) {
 
             // Try again for the user
             } else {
-                console.log("Solo haga clic en aeropuerto YA añadido previamente.");
+                ShowAlert("Solo haga clic en aeropuerto YA añadido previamente.", 'warning', 2000);
             }
             
         }
@@ -443,7 +441,7 @@ function Traversal(traversal_type) {
 function SinglePath() {
     // If there are less than 2 markers added to the graph
     if (selected_markers.length < 2) {
-        console.log("Seleccione al menos dos aeropuertos antes de pulsar este botón.");
+        ShowAlert("Seleccione al menos dos aeropuertos antes de pulsar este botón.", 'error', 2000);
         return;
     }
 
@@ -454,7 +452,7 @@ function SinglePath() {
         buttons[i].style.background = "var(--secondary-color)";
     }
 
-    console.log("Haga clic en un aeropuerto inicial.");
+    ShowAlert("Haga clic en un aeropuerto inicial.", 'info', 5000);
 
     let isStart = true;
     let marker_clicked;
@@ -463,6 +461,7 @@ function SinglePath() {
     let on_selection = true;
     let startPoint;
     let endPoint;
+    var results_text = document.getElementById("results-path");
 
     // Save last element clicked.
     document.onclick = e => {
@@ -515,7 +514,7 @@ function SinglePath() {
                 if (isStart) {
                     isStart = false;
                     start_marker = marker_clicked;
-                    console.log('Ahora, haga clic en un aeropuerto de destino.');
+                    ShowAlert('Ahora, haga clic en un aeropuerto de destino.', 'info', 5000);
                 
                 } else {
                     // Code to exec after click event:
@@ -524,7 +523,7 @@ function SinglePath() {
 
                     // Check if the markers are the same
                     if (start_marker == end_marker) {
-                        console.log("El aeropuerto de destino tiene que ser diferente.");
+                        ShowAlert("El aeropuerto de destino tiene que ser diferente.", 'error', 2000);
                     } else {
                         // Clean state
                         on_selection = false;
@@ -551,7 +550,24 @@ function SinglePath() {
                             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
 
                                 response = JSON.parse(xhr.response);
-                                console.log(response);
+                                
+                                // Display the results in the results box
+                                results_text.innerHTML = null;
+
+                                // If no path possible
+                                if (response["airports"].length == 0) {
+                                    ShowAlert("No hay camino posible.",'warning',2000);
+                                    return;
+                                }
+
+                                for (let i = 0; i < response["airports"].length; i++) {
+                                    results_text.innerHTML += `<li>${response["airports"][i]}</li>`;
+                                }
+
+                                // Show the airplane going
+                                MoveAirplane(response["route"], response["route"].length * 500);
+
+                                ShowAlert("Vea los resultados en el panel.",'info',4000);
                                 
                             }
                         
@@ -573,7 +589,7 @@ function SinglePath() {
 
             // Try again for the user
             } else {
-                console.log("Solo haga clic en aeropuerto YA añadido previamente.");
+                ShowAlert("Solo haga clic en aeropuerto YA añadido previamente.", 'warning', 2000);
             }
         }
     },100);

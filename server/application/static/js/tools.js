@@ -18,7 +18,12 @@ prevButton.addEventListener("click", () => {
 // Copy the output
 function CopyResultsTraversal() {
     var results_text = document.getElementById("results-traversal");
+
+    if (results_text.textContent == '') {
+        return;
+    }
+
     navigator.clipboard.writeText(results_text.textContent);
 
-    console.log("Copied to clipboard.")
+    ShowAlert('Copiado en el portapapeles','info',2000);
 }

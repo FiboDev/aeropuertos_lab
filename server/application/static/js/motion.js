@@ -31,11 +31,3 @@ function MoveAirplane(path, time) {
 ////
 
 
-
-
-
-/*
-    ASIDE FUNCTIONS
-*/
-
-////
