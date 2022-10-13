@@ -699,10 +699,10 @@ function OneToAllPaths() {
 
                         results_text.innerHTML = '';
                         // If no path possible
-                        if (airports[0].length == 0) {
-                            ShowAlert("No hay camino posible.",'warning',2000);
-                            return;
-                        }
+                        // if (airports[0].length == 0) {
+                        //     ShowAlert("No hay camino posible.",'warning',2000);
+                        //     return;
+                        // }
 
                         let index_path = 1;
                         for (let i = 0; i < airports.length; i++) {
