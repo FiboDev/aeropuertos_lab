@@ -246,29 +246,29 @@ html {
     }
 
     .swal2-popup {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     .my-styles.panel .instructions .instructions-box p {
-        font-size: 20px;
-        line-height: 30px;
+        font-size: 16px;
+        line-height: 25px;
     }
 
     .tools .tools-container section .actual-tool {
-        font-size: 35px;
+        font-size: 32px;
     }
 
     .tools .tools-container section p {
-        font-size: 20px;
+        font-size: 16px;
     }
 
     .tools .tools-container section .buttons button {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     .tools .tools-container section .results {
-        font-size: 20px;
-        line-height: 30px;
+        font-size: 18px;
+        line-height: 28px;
     }
     
 }

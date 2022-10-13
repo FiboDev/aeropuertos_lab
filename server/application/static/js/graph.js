@@ -696,6 +696,13 @@ function OneToAllPaths() {
                         let routes = response[0];
 
                         results_text.innerHTML = '';
+                        // If no path possible
+                        if (airports[0].length == 0) {
+                            ShowAlert("No hay camino posible.",'warning',2000);
+                            return;
+                        }
+
+                        
                         for (let i = 0; i < airports.length; i++) {
                             results_text.innerHTML += `<p style="font-weight: bold;">Camino ${i+1}<p>`;
                             for (let n = 0; n < airports[i].length; n++) {
