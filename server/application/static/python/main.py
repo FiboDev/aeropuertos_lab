@@ -69,28 +69,39 @@ def shortestPathBetweenTwoDestinations(latOrigin: float, longOrigin: float, latD
 def shortestPathToAllDestinations(latOrigin: float, longOrigin: float):
     #calculate the shortest path
     path = areopuertos.floyd_warshall()
-    #create a coordinates list
+    #create a coordinate list
     coordinate_list = []
-    #create a names list
+    #create a coordinate list
     names_list = []
     #get the path
     paths = areopuertos.shortest_paths_to_airports(latOrigin, longOrigin, path)
+    print("esto es paths ", paths)
 
     #iterate over the path
     for name in paths:
         #append to a list the name paths´s names
         names_list.append(paths[name])
-    
-    #convert the names list as a coordinates list
+
+    #check if paths exists
+    empty_list = True
     for list in names_list:
-        coordinates = []
-        for name in list:
-            coordinates.append(areopuertos.namesToCoordinates(name))
-        coordinate_list.append(coordinates)  
-    
-    #add both list to a general list
-    list = []
-    list.append(coordinate_list)
-    list.append(names_list)
+        if len(list) > 0:
+            empty_list = False
+            break
+
+    if not empty_list:
+        #convert the names list as a coordinate list
+        for list in names_list:
+            coordinates = []
+            for name in list:
+                coordinates.append(areopuertos.namesToCoordinates(name))
+            coordinate_list.append(coordinates)  
+        
+        #add both list to a general list
+        list = []
+        list.append(coordinate_list)
+        list.append(names_list)
+    else:
+        list = []
 
     return json.dumps(list)
