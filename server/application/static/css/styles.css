@@ -228,3 +228,18 @@ html {
 .sw-title {
     color: #575757;
 }
+
+/* ============= MEDIAQUERIES ============= */
+
+/* Tablet & mobile viewport */
+@media (max-width: 810px) {
+    .my-styles.panel-container {
+        top: auto;
+        right: auto;
+        bottom: 0;
+        width: 100%;
+        height: 50%;
+    }
+    
+}
+  
