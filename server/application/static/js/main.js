@@ -8,11 +8,6 @@ $(document).ready(function () {
         XMLHttpRequest to Python backend
     */
     var xhr = new XMLHttpRequest();
-    /*
-        some config for it
-    */
-    xhr.open("POST", "/api/v1", true);
-    xhr.setRequestHeader("Content-Type", "application/json");
 
 
 
@@ -30,26 +25,47 @@ $(document).ready(function () {
 
 
 
+    /*
+        CONST buttons of the panel
+    */
+    const panelButtons = $(".tool-button");
+
+
+
     /* --------------- PANEL FUNCTIONALITY --------------- */
 
     // Complete the select input on the panel
     completeSelect(MAP, selectInput);
 
 
+
+    /* --------------- BUTTONS FUNCTIONALITY --------------- */
+
     // PRIM button function
-    /*
-    function PRIM() {
-        xhr.send(JSON.stringify({"airport": "random", "method": "prim"}))
+    $(".tool-button.prim").click(function PRIM() {
+        // Disable buttons
+        toggleButtons(panelButtons);
+
+        console.log(typeof selectInput.val())
+
+        xhr.open("POST", "/api/v1", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify({"airport": selectInput.val(), "method": "prim"}))
+
         xhr.onreadystatechange = function () {
     
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
         
-                //Server response
+                // Server response
                 var response = JSON.parse(xhr.responseText);
         
-                console.log(response)
+                console.log(response);
+
+                // Enable them again
+                toggleButtons(panelButtons);
             }
+            
         }
-    }    
-    */
+    });    
+    
 });
