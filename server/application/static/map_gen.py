@@ -27,7 +27,7 @@ m = folium.Map( # Colombia location
 
 
 # CSV airport data
-df = pd.read_csv("flights_data/airports.csv", sep = ';')
+df = pd.read_csv("server/application/static/airports.csv", sep = ',')
 
 # Markers
 for index, row in df.iterrows():
@@ -42,39 +42,15 @@ for index, row in df.iterrows():
     #Popup data
     popup_data = f'''
         <p><b>Aeropuerto:</b> {airport_name}</p>
-        <p><b>Ubicación:</b> {airport_location}</p>
-        <div style="display: flex; justify-content: center; flex-wrap: wrap;">
-            <button id='{airport_name}' lat='{marker_LAT}' lon='{marker_LON}'
-                style="
-                    border: none;
-                    background: #d13d29;
-                    color: white;
-                    padding: 5px 20px;
-                "
-                onclick="AddAirport('{airport_name}',{marker_LAT},{marker_LON})"
-            >Seleccionar</button>
-
-            <button id='del_{airport_name}' lat='{marker_LAT}' lon='{marker_LON}'
-                style="
-                    display: none;
-                    border: none;
-                    margin-top: 5px;
-                    background: #575757;
-                    width: 100%;
-                    color: white;
-                    padding: 5px 20px;
-                "
-                onclick="DelAirport('{airport_name}',{marker_LAT},{marker_LON})"
-            >Quitar</button>
-        </div>
-        
+        <p><b>Ubicación:</b> {airport_location}</p> 
     '''
 
     # Marker data
     marker = folium.Marker(
         location=[marker_LAT, marker_LON],
         popup=popup_data,
-        icon=folium.Icon(color="gray", icon="plane")
+        icon=folium.Icon(color="gray", icon="plane"),
+        name=airport_name
     )
 
     marker.add_to(m)
@@ -91,4 +67,4 @@ for index, row in df.iterrows():
 # ).add_to(m)
 
 # Map save
-m.save("views/index.html")
+m.save("server/application/static/index.html")
