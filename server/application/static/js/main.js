@@ -46,20 +46,28 @@ $(document).ready(function () {
         // Disable buttons
         toggleButtons(panelButtons);
 
-        console.log(typeof selectInput.val())
+        let airportName = normalizeName(selectInput.val());
+
+        console.log(airportName);
 
         xhr.open("POST", "/api/v1", true);
         xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(JSON.stringify({"airport": selectInput.val(), "method": "prim"}))
+        xhr.send(JSON.stringify({"airport": airportName, "method": "prim"}));
 
+        // Promise request
         xhr.onreadystatechange = function () {
     
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
         
                 // Server response
                 var response = JSON.parse(xhr.responseText);
-        
+                
+
+
+                // Actual function
                 console.log(response);
+
+
 
                 // Enable them again
                 toggleButtons(panelButtons);
