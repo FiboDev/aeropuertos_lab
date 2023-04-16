@@ -29,10 +29,12 @@ def get_post():
     
     if method == "prim":
         
-        ... 
+        airport_name = data.get("airport")
+        
+        response = prim_mst(airport_name) 
     
     if method == "kruskal":
         
-        ...
+        response = kruskal_mst()
     
     return response

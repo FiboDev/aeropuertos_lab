@@ -1,4 +1,5 @@
 from application.static.python.Airports import *
+import random
 
 #Global objects
 graph = make_airports_graph()
@@ -11,4 +12,11 @@ def kruskal_mst() -> dict[str, list[tuple[str, float]]]:
 
 #minimun spanning tree using Prim's Algorithm
 def prim_mst(start_vertex: str) -> dict[str, list[tuple[str, float]]]:
+
+    if start_vertex == 'random':
+        keys = [key for key in graph]
+        key = keys[random.randint(0, 48)]
+        start_vertex = key
+    print(start_vertex)
+
     return airports.Prim(graph, start_vertex)
