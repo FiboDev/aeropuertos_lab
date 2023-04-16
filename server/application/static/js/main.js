@@ -19,6 +19,13 @@ $(document).ready(function () {
 
 
     /*
+        VAR graph to keep the polylines drawn
+    */
+    var graph = [];
+
+
+
+    /*
         CONST related to the select input for PRIM algorithm
     */
     const selectInput = $("#airports-list");
@@ -48,8 +55,6 @@ $(document).ready(function () {
 
         let airportName = selectInput.val();
 
-        console.log(airportName);
-
         xhr.open("POST", "/api/v1", true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(JSON.stringify({"airport": airportName, "method": "prim"}));
@@ -64,8 +69,9 @@ $(document).ready(function () {
                 
 
 
-                // Actual function
-                console.log(response);
+                // Draw the graph
+                drawGraph(MAP, graph, response);
+                
                 
 
                 // Enable them again
