@@ -27,7 +27,7 @@ m = folium.Map( # Colombia location
 
 
 # CSV airport data
-df = pd.read_csv("server/application/static/airports.csv", sep = ',')
+df = pd.read_csv("server/application/static/aeropuertos.csv", sep = ',')
 
 # Markers
 for index, row in df.iterrows():
