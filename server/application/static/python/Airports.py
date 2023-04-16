@@ -88,7 +88,7 @@ class Graph :
 def make_airports_graph() -> dict[str, list[tuple[str, float]]]:
     
     # {name: (lat, long)}
-    data = {fila[1].upper(): (fila[2], fila[3]) for fila in pd.read_csv("server/application/static/aeropuertos.csv").values}
+    data = {fila[0]: (fila[2], fila[3]) for fila in pd.read_csv("server/application/static/aeropuertos.csv").values}
     # {name: [(name, distance)]}
     airports_graph = {}
     for key in data:

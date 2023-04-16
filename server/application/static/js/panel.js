@@ -29,11 +29,3 @@ function toggleButtons(buttons) {
         $(this).prop('disabled', !isDisabled); // toggle the disabled property
     });
 }
-
-// Normalize airport name
-function normalizeName(str) {
-    str = str.toUpperCase();
-    let removedAccentsStr = str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
-    return removedAccentsStr
-}

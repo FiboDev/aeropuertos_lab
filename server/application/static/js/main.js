@@ -46,7 +46,7 @@ $(document).ready(function () {
         // Disable buttons
         toggleButtons(panelButtons);
 
-        let airportName = normalizeName(selectInput.val());
+        let airportName = selectInput.val();
 
         console.log(airportName);
 
@@ -66,8 +66,7 @@ $(document).ready(function () {
 
                 // Actual function
                 console.log(response);
-
-
+                
 
                 // Enable them again
                 toggleButtons(panelButtons);
