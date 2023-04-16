@@ -26,7 +26,7 @@ $(document).ready(function () {
     /*
         CONST related to the select input for PRIM algorithm
     */
-    const selectInput = $("airports-list");
+    const selectInput = $("#airports-list");
 
 
 
