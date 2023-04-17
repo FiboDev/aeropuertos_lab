@@ -41,16 +41,25 @@ $(document).ready(function () {
 
     /* --------------- BUTTONS FUNCTIONALITY --------------- */
 
-    // -------- PRIM button function
-    $(".tool-button.prim").click(function PRIM() {
+    // Call MST on backend
+    function MST(method) {
         // Disable buttons
         toggleButtons(panelButtons);
 
-        let airportName = selectInput.val();
-
         xhr.open("POST", "/api/v1", true);
         xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(JSON.stringify({ "airport": airportName, "method": "prim" }));
+
+        if (method == "prim") {
+            let airportName = selectInput.val();
+            xhr.send(JSON.stringify({ "airport": airportName, "method": method }));
+
+        } else if (method == "kruskal") {
+            xhr.send(JSON.stringify({ "method": method }));
+
+        } else {
+            return;
+        }
+        
 
         // Promise request
         xhr.onreadystatechange = function () {
@@ -60,7 +69,10 @@ $(document).ready(function () {
                 // Server response
                 var response = JSON.parse(xhr.responseText);
 
-
+                if (method == "kruskal") {
+                    console.log(response)
+                    return
+                }
 
                 // Draw the graph
                 drawGraph(MAP, response).then(() => {
@@ -71,6 +83,16 @@ $(document).ready(function () {
             }
 
         }
+    }
+
+    // -------- PRIM button function
+    $(".tool-button.prim").click(function() {
+        MST("prim");
+    });
+
+    // -------- KRUSKAL button function
+    $(".tool-button.kruskal").click(function() {
+        MST("kruskal")
     });
 
     // -------- RESET button function
