@@ -19,13 +19,6 @@ $(document).ready(function () {
 
 
     /*
-        VAR graph to keep the polylines drawn
-    */
-    var graph = [];
-
-
-
-    /*
         CONST related to the select input for PRIM algorithm
     */
     const selectInput = $("#airports-list");
@@ -48,7 +41,7 @@ $(document).ready(function () {
 
     /* --------------- BUTTONS FUNCTIONALITY --------------- */
 
-    // PRIM button function
+    // -------- PRIM button function
     $(".tool-button.prim").click(function PRIM() {
         // Disable buttons
         toggleButtons(panelButtons);
@@ -57,28 +50,38 @@ $(document).ready(function () {
 
         xhr.open("POST", "/api/v1", true);
         xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(JSON.stringify({"airport": airportName, "method": "prim"}));
+        xhr.send(JSON.stringify({ "airport": airportName, "method": "prim" }));
 
         // Promise request
         xhr.onreadystatechange = function () {
-    
+
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-        
+
                 // Server response
                 var response = JSON.parse(xhr.responseText);
-                
+
 
 
                 // Draw the graph
-                drawGraph(MAP, graph, response);
-                
-                
+                drawGraph(MAP, response).then(() => {
+                    // Enable buttons again
+                    toggleButtons(panelButtons);
+                });
 
-                // Enable them again
-                toggleButtons(panelButtons);
             }
-            
+
         }
-    });    
-    
+    });
+
+    // -------- RESET button function
+    $(".tool-button.reset").click(function RESET() {
+        // Disable buttons
+        toggleButtons(panelButtons);
+
+
+        // Enable buttons again
+        toggleButtons(panelButtons);
+
+    });
+
 });

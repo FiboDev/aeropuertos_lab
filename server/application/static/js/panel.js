@@ -27,5 +27,10 @@ function toggleButtons(buttons) {
     buttons.each(function () { // iterate over each button
         var isDisabled = $(this).prop('disabled'); // check if the button is disabled
         $(this).prop('disabled', !isDisabled); // toggle the disabled property
+        if (!isDisabled) {
+            $(this).addClass('disabled-button'); // add the disabled class
+        } else {
+            $(this).removeClass('disabled-button'); // remove the disabled class
+        }
     });
 }

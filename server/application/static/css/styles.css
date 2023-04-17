@@ -22,7 +22,7 @@
 ::-webkit-scrollbar-track {
     background: transparent;
 }
-  
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: var(--secondary-color);
@@ -52,7 +52,7 @@
     border-radius: 2px;
 
     background: white;
-    box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
 
     overflow-x: hidden;
     overflow-y: scroll;
@@ -143,6 +143,10 @@
     border: none;
 }
 
+.my-styles.panel .tools .tools-container .tool .tool-button.disabled-button {
+    background: gray;
+}
+
 .my-styles.panel .tools .tools-container .tool #airports-list {
     width: 100%;
     height: 40px;
@@ -172,6 +176,5 @@
         font-size: 16px;
         line-height: 25px;
     }
-    
+
 }
-  
