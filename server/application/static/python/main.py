@@ -8,6 +8,9 @@ airports = Graph(vertexes_and_edges[0], vertexes_and_edges[1])
 
 #minimun spanning tree using Kruskal's Algorithm
 def kruskal_mst() -> dict[str, list[tuple[str, float]]]:
+    airports.mst.clear()
+    airports.rank.clear()
+    airports.parent.clear()
     return airports.KruskalMST()
 
 #minimun spanning tree using Prim's Algorithm

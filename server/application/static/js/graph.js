@@ -86,7 +86,7 @@ async function drawGraph(map, data) {
             }
         });
 
-        await delay(0); // delay execution for 1 second
+        await delay(50); // delay execution for 1 second
     }
 
 }

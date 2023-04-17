@@ -69,11 +69,6 @@ $(document).ready(function () {
                 // Server response
                 var response = JSON.parse(xhr.responseText);
 
-                if (method == "kruskal") {
-                    console.log(response)
-                    return
-                }
-
                 // Draw the graph
                 drawGraph(MAP, response).then(() => {
                     // Enable buttons again
