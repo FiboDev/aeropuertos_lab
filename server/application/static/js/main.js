@@ -78,6 +78,8 @@ $(document).ready(function () {
         // Disable buttons
         toggleButtons(panelButtons);
 
+        // Reset the graph
+        resetGraph(MAP);
 
         // Enable buttons again
         toggleButtons(panelButtons);

@@ -5,6 +5,9 @@
 // Draw the lines of the graph
 async function drawGraph(map, data) {
 
+    // Reset the graph to start over
+    resetGraph(map)
+
     // Iterate over the airports in the data provided
     for (const route of data) {
 
@@ -83,10 +86,39 @@ async function drawGraph(map, data) {
             }
         });
 
-        await delay(500); // delay execution for 1 second
+        await delay(0); // delay execution for 1 second
     }
 
 }
+
+
+
+// Erase the graph to start over
+function resetGraph(map) {
+
+    // ---- RETURN ALL MARKERS TO ORIGINAL COLOR
+    let icon = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    // Find markers on the map
+    map.eachLayer(function (marker) {
+        if (marker instanceof L.Marker) {
+            // Set old icon
+            marker.setIcon(icon);
+        }
+    });
+
+    // ---- REMOVE ALL LINES
+    // Iterate the map to find all lines
+    map.eachLayer(function (line) {
+        if (line instanceof L.Polyline || line instanceof L.PolylineDecorator) {
+            // Remove the line
+            line.remove();
+        }
+    });
+}
+
+
 
 // Delay graph drawing
 function delay(ms) {
