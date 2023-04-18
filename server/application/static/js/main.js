@@ -14,7 +14,7 @@ $(document).ready(function () {
     /*
         CONST assigned from the folium generated map
     */
-    const MAP = map_26925c45312d30b1d824ec463f4be208;
+    const MAP = map_be448aef8317b899d267abc2768059e0;
 
 
 

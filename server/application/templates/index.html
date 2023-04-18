@@ -1,1460 +1,1022 @@
 <!DOCTYPE html>
 <html>
-<head>
-    
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    
-        <script>
-            L_NO_TOUCH = false;
-            L_DISABLE_3D = false;
-        </script>
-    
-    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
-    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
 
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <script>
+        L_NO_TOUCH = false;
+        L_DISABLE_3D = false;
+    </script>
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <style>
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+        }
+    </style>
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css" />
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
-    
     <!-- MY STYLES -->
     <link rel="stylesheet" href="../static/css/normalize.css">
     <link rel="stylesheet" href="../static/css/styles.css">
 
-            <meta name="viewport" content="width=device-width,
+
+    <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-            <style>
-                #map_26925c45312d30b1d824ec463f4be208 {
-                    position: relative;
-                    width: 100.0%;
-                    height: 100.0%;
-                    left: 0.0%;
-                    top: 0.0%;
-                }
-                .leaflet-container { font-size: 1rem; }
-            </style>
-        
+    <style>
+        #map_be448aef8317b899d267abc2768059e0 {
+            position: relative;
+            width: 100.0%;
+            height: 100.0%;
+            left: 0.0%;
+            top: 0.0%;
+        }
+
+        .leaflet-container {
+            font-size: 1rem;
+        }
+    </style>
+
 </head>
+
 <body>
-    
-    
-            <!-- MAP -->
-            <div class="folium-map" id="map_26925c45312d30b1d824ec463f4be208" ></div>
 
+    <!-- MAP -->
+    <div class="folium-map" id="map_be448aef8317b899d267abc2768059e0"></div>
 
+    <!-- PANEL -->
+    <div class="my-styles panel-container">
+        <!-- PANEL -->
+        <div class="my-styles panel">
+            <!-- TITLE -->
+            <h1>Aerolínea<br>PRO</h1>
 
-            <!-- PANEL -->
-            <div class="my-styles panel-container">
-                <!-- PANEL -->
-                <div class="my-styles panel">
-                    <!-- TITLE -->
-                    <h1>Aerolínea<br>PRO</h1>
+            <hr>
+
+            <!-- INSTRUCTIONS -->
+            <section class="instructions">
+                <h2>Cómo usar</h2>
+                <div class="instructions-box">
+                    <p>
+                        Haga clic en cualquier de los 2 botones o siga las instrucciones para
+                        interactuar con la herramienta.
+                        <br><br>
+                        Puede seleccionar cualquiera de las 2 opciones que están abajo.
+                    </p>
+                </div>
+            </section>
+
+            <hr>
+
+            <!-- TOOLS -->
+            <div class="tools">
+
+                <div class="tools-container" id="tools-container">
+
+                    <h3>Ruta Aérea Principal</h3>
 
                     <hr>
-
-                    <!-- INSTRUCTIONS -->
-                    <section class="instructions">
-                        <h2>Cómo usar</h2>
-                        <div class="instructions-box">
-                            <p>
-                                Haga clic en cualquier de los 2 botones o siga las instrucciones para
-                                interactuar con la herramienta.
-                                <br><br>
-                                Puede seleccionar cualquiera de las 2 opciones que están abajo.
-                            </p>
-                        </div>
+                    <section class="tool prim">
+                        <p>Para hacerlo por el algoritmo PRIM, debe seleccionar un aeropuerto o la opción "aleatorio".
+                        </p>
+                        <select name="" id="airports-list">
+                            <option value="random">Aleatorio</option>
+                        </select>
+                        <button class="tool-button prim">Prim</button>
                     </section>
 
                     <hr>
+                    <section class="tool kruskal">
+                        <button class="tool-button kruskal">Kruskal</button>
+                    </section>
 
-                    <!-- TOOLS -->
-                    <div class="tools">
+                    <hr>
+                    <section class="tool reset">
+                        <p>Para reiniciar el mapa, haga clic en el siguiente botón:</p>
+                        <button class="tool-button reset">Reiniciar</button>
+                    </section>
 
-                        <div class="tools-container" id="tools-container">
-                            
-                            <h3>Ruta Aérea Principal</h3>
-
-                            <hr>
-                            <section class="tool prim">
-                                <p>Para hacerlo por el algoritmo PRIM, debe seleccionar un aeropuerto o la opción "aleatorio".</p>
-                                <select name="" id="airports-list">
-                                    <option value="random">Aleatorio</option>
-                                </select>
-                                <button class="tool-button prim">Prim</button>
-                            </section>
-
-                            <hr>
-                            <section class="tool kruskal">
-                                <button class="tool-button kruskal">Kruskal</button>
-                            </section>
-
-                            <hr>
-                            <section class="tool reset">
-                                <p>Para reiniciar el mapa, haga clic en el siguiente botón:</p>
-                                <button class="tool-button reset">Reiniciar</button>
-                            </section>
-                            
-                        </div>
-
-                    </div>
                 </div>
+
             </div>
-        
+        </div>
+    </div>
+
 </body>
 <script>
-    
-    
-            var map_26925c45312d30b1d824ec463f4be208 = L.map(
-                "map_26925c45312d30b1d824ec463f4be208",
-                {
-                    center: [4.74, -71.0],
-                    crs: L.CRS.EPSG3857,
-                    maxBounds: [[-6, -100], [20, -40]],
-                    zoom: 6,
-                    zoomControl: true,
-                    preferCanvas: false,
-                }
-            );
 
-            
 
-        
-    
-            var tile_layer_be9e1a55f2257a33d9c2abfedf8aaba9 = L.tileLayer(
-                "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
-                {"attribution": "\u0026copy; \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca target=\"_blank\" href=\"http://cartodb.com/attributions\"\u003eCartoDB\u003c/a\u003e, CartoDB \u003ca target=\"_blank\" href =\"http://cartodb.com/attributions\"\u003eattributions\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 6, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var marker_dc293b8e6c3267eec6da83c5567221d4 = L.marker(
-                [3.54322, -76.3816],
-                {"name": "Aeropuerto Internacional Alfonso Bonilla Arag\u00f3n"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_2ff6c2e49f5a3408c496eb0347424d32 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_dc293b8e6c3267eec6da83c5567221d4.setIcon(icon_2ff6c2e49f5a3408c496eb0347424d32);
-        
-    
-        var popup_26489f55527084d0339960b3f9f74ade = L.popup({"maxWidth": "100%"});
+    var map_be448aef8317b899d267abc2768059e0 = L.map(
+        "map_be448aef8317b899d267abc2768059e0",
+        {
+            center: [4.74, -71.0],
+            crs: L.CRS.EPSG3857,
+            maxBounds: [[-6, -100], [20, -40]],
+            zoom: 6,
+            zoomControl: true,
+            preferCanvas: false,
+        }
+    );
 
-        
-            
-                var html_e78646ab856c8e71f928f070910633f6 = $(`<div id="html_e78646ab856c8e71f928f070910633f6" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional Alfonso Bonilla Aragón</p>         <p><b>Ubicación:</b> Cali</p>      </div>`)[0];
-                popup_26489f55527084d0339960b3f9f74ade.setContent(html_e78646ab856c8e71f928f070910633f6);
-            
-        
 
-        marker_dc293b8e6c3267eec6da83c5567221d4.bindPopup(popup_26489f55527084d0339960b3f9f74ade)
+
+
+
+    var tile_layer_65987cfe29e118a79451e0ddd05c0f56 = L.tileLayer(
+        "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
+        { "attribution": "\u0026copy; \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca target=\"_blank\" href=\"http://cartodb.com/attributions\"\u003eCartoDB\u003c/a\u003e, CartoDB \u003ca target=\"_blank\" href =\"http://cartodb.com/attributions\"\u003eattributions\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 6, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var marker_9183348a98c6af75a9f567ae0290a613 = L.marker(
+        [3.54322, -76.3816],
+        { "name": "Aeropuerto Internacional Alfonso Bonilla Arag\u00f3n" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_ec4f3aff3a0f9e79902327eaea9c872a = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_9183348a98c6af75a9f567ae0290a613.setIcon(icon_ec4f3aff3a0f9e79902327eaea9c872a);
+
+
+    var popup_f1532b8e02d61f0b51316b0a677e1052 = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_1dd32752a5c91034a8c5c53a4a664008 = $(`<div id="html_1dd32752a5c91034a8c5c53a4a664008" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional Alfonso Bonilla Aragón</p>         <p><b>Ubicación:</b> Cali</p>      </div>`)[0];
+    popup_f1532b8e02d61f0b51316b0a677e1052.setContent(html_1dd32752a5c91034a8c5c53a4a664008);
+
+
+
+    marker_9183348a98c6af75a9f567ae0290a613.bindPopup(popup_f1532b8e02d61f0b51316b0a677e1052)
         ;
 
-        
-    
-    
-            var marker_e08656fd9755ca631c02d0eb5376966e = L.marker(
-                [-4.19355, -69.9432],
-                {"name": "Aeropuerto Internacional Alfredo V\u00e1squez Cobo"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_c17da4fa1e50b25584c4a7af85a5f5bd = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_e08656fd9755ca631c02d0eb5376966e.setIcon(icon_c17da4fa1e50b25584c4a7af85a5f5bd);
-        
-    
-        var popup_a2babf55c6bc7d9c6e6b45871ff9d0af = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_7792bb5e8678717517243c956aca42b3 = $(`<div id="html_7792bb5e8678717517243c956aca42b3" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional Alfredo Vásquez Cobo</p>         <p><b>Ubicación:</b> Leticia</p>      </div>`)[0];
-                popup_a2babf55c6bc7d9c6e6b45871ff9d0af.setContent(html_7792bb5e8678717517243c956aca42b3);
-            
-        
 
-        marker_e08656fd9755ca631c02d0eb5376966e.bindPopup(popup_a2babf55c6bc7d9c6e6b45871ff9d0af)
+
+    var marker_6fdbf4bbc29044697a62a8cc4934b356 = L.marker(
+        [-4.19355, -69.9432],
+        { "name": "Aeropuerto Internacional Alfredo V\u00e1squez Cobo" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_e0f352e3e446e8003ea4f7da97276b42 = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_6fdbf4bbc29044697a62a8cc4934b356.setIcon(icon_e0f352e3e446e8003ea4f7da97276b42);
+
+
+    var popup_74046c57af9175b7fa1f5165f8587ddf = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_877820038ba862ac0ac402479b5a0c35 = $(`<div id="html_877820038ba862ac0ac402479b5a0c35" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional Alfredo Vásquez Cobo</p>         <p><b>Ubicación:</b> Leticia</p>      </div>`)[0];
+    popup_74046c57af9175b7fa1f5165f8587ddf.setContent(html_877820038ba862ac0ac402479b5a0c35);
+
+
+
+    marker_6fdbf4bbc29044697a62a8cc4934b356.bindPopup(popup_74046c57af9175b7fa1f5165f8587ddf)
         ;
 
-        
-    
-    
-            var marker_0a90ac791640d5c3ee9a5e37d95b88f2 = L.marker(
-                [7.92757, -72.5115],
-                {"name": "Aeropuerto Internacional Camilo Daza"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_d10f515ef521eeb88c46adbf95aa5575 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_0a90ac791640d5c3ee9a5e37d95b88f2.setIcon(icon_d10f515ef521eeb88c46adbf95aa5575);
-        
-    
-        var popup_ed791e77298578dd931dda001293ae8c = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_f977cbba2a561e2cd8748bcf040a44e6 = $(`<div id="html_f977cbba2a561e2cd8748bcf040a44e6" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional Camilo Daza</p>         <p><b>Ubicación:</b> Cúcuta</p>      </div>`)[0];
-                popup_ed791e77298578dd931dda001293ae8c.setContent(html_f977cbba2a561e2cd8748bcf040a44e6);
-            
-        
 
-        marker_0a90ac791640d5c3ee9a5e37d95b88f2.bindPopup(popup_ed791e77298578dd931dda001293ae8c)
+
+    var marker_d4b1afcd0a9f5108cb2b2f6793661522 = L.marker(
+        [7.92757, -72.5115],
+        { "name": "Aeropuerto Internacional Camilo Daza" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_b4d64d3890b882484155786722506634 = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_d4b1afcd0a9f5108cb2b2f6793661522.setIcon(icon_b4d64d3890b882484155786722506634);
+
+
+    var popup_e18dcf1daf9b6b467b977e09dd0e3a77 = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_94814377b39d1beaed747c900655310a = $(`<div id="html_94814377b39d1beaed747c900655310a" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional Camilo Daza</p>         <p><b>Ubicación:</b> Cúcuta</p>      </div>`)[0];
+    popup_e18dcf1daf9b6b467b977e09dd0e3a77.setContent(html_94814377b39d1beaed747c900655310a);
+
+
+
+    marker_d4b1afcd0a9f5108cb2b2f6793661522.bindPopup(popup_e18dcf1daf9b6b467b977e09dd0e3a77)
         ;
 
-        
-    
-    
-            var marker_834548858e4bcee556e7f430b3a95714 = L.marker(
-                [5.31911, -72.384],
-                {"name": "Aeropuerto Internacional El Alcarav\u00e1n"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_b2f2718cf4b71ef12f9abab88edfd9b2 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_834548858e4bcee556e7f430b3a95714.setIcon(icon_b2f2718cf4b71ef12f9abab88edfd9b2);
-        
-    
-        var popup_c85d70c11d4db9699f8547a2017bc64b = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_4b1e4c8650503eff1f1bbb21c7d8b3ba = $(`<div id="html_4b1e4c8650503eff1f1bbb21c7d8b3ba" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional El Alcaraván</p>         <p><b>Ubicación:</b> Yopal</p>      </div>`)[0];
-                popup_c85d70c11d4db9699f8547a2017bc64b.setContent(html_4b1e4c8650503eff1f1bbb21c7d8b3ba);
-            
-        
 
-        marker_834548858e4bcee556e7f430b3a95714.bindPopup(popup_c85d70c11d4db9699f8547a2017bc64b)
+
+    var marker_c5cbbbe94351f0fd7542f0bb8c247165 = L.marker(
+        [5.31911, -72.384],
+        { "name": "Aeropuerto Internacional El Alcarav\u00e1n" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_dbe23df18a50d621f9a73fd7652c595d = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_c5cbbbe94351f0fd7542f0bb8c247165.setIcon(icon_dbe23df18a50d621f9a73fd7652c595d);
+
+
+    var popup_10415426bb6766879a37a050dbf018d0 = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_2abb4fc163184308a28d39fa8c3ac839 = $(`<div id="html_2abb4fc163184308a28d39fa8c3ac839" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional El Alcaraván</p>         <p><b>Ubicación:</b> Yopal</p>      </div>`)[0];
+    popup_10415426bb6766879a37a050dbf018d0.setContent(html_2abb4fc163184308a28d39fa8c3ac839);
+
+
+
+    marker_c5cbbbe94351f0fd7542f0bb8c247165.bindPopup(popup_10415426bb6766879a37a050dbf018d0)
         ;
 
-        
-    
-    
-            var marker_754ea1bdff0f6e51f496f70135eeedc1 = L.marker(
-                [4.70159, -74.1469],
-                {"name": "Aeropuerto Internacional El Dorado"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_d29f1edaa6a6165efcdc3d745e4a8792 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_754ea1bdff0f6e51f496f70135eeedc1.setIcon(icon_d29f1edaa6a6165efcdc3d745e4a8792);
-        
-    
-        var popup_03188dd66f1ab8392da9132bc56148f9 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_8faa719b8f1ef3c060635d4f5910cd5c = $(`<div id="html_8faa719b8f1ef3c060635d4f5910cd5c" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional El Dorado</p>         <p><b>Ubicación:</b> Bogota</p>      </div>`)[0];
-                popup_03188dd66f1ab8392da9132bc56148f9.setContent(html_8faa719b8f1ef3c060635d4f5910cd5c);
-            
-        
 
-        marker_754ea1bdff0f6e51f496f70135eeedc1.bindPopup(popup_03188dd66f1ab8392da9132bc56148f9)
+
+    var marker_998ad97f2cf6080713d3f66e4adab60c = L.marker(
+        [4.70159, -74.1469],
+        { "name": "Aeropuerto Internacional El Dorado" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_2c7343f794c488b1b61211b86a0bea23 = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_998ad97f2cf6080713d3f66e4adab60c.setIcon(icon_2c7343f794c488b1b61211b86a0bea23);
+
+
+    var popup_12e184336f21fc335c112cd6984215cf = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_56065a5f6a4cbea92bf6e57345d7360f = $(`<div id="html_56065a5f6a4cbea92bf6e57345d7360f" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional El Dorado</p>         <p><b>Ubicación:</b> Bogota</p>      </div>`)[0];
+    popup_12e184336f21fc335c112cd6984215cf.setContent(html_56065a5f6a4cbea92bf6e57345d7360f);
+
+
+
+    marker_998ad97f2cf6080713d3f66e4adab60c.bindPopup(popup_12e184336f21fc335c112cd6984215cf)
         ;
 
-        
-    
-    
-            var marker_d70862fd52257fa391cc7aae3ad26eb4 = L.marker(
-                [4.45278, -75.7664],
-                {"name": "Aeropuerto Internacional El Ed\u00e9n"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_a4065349aed18c0d6ce08e48d987fb1c = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_d70862fd52257fa391cc7aae3ad26eb4.setIcon(icon_a4065349aed18c0d6ce08e48d987fb1c);
-        
-    
-        var popup_060b2fd2c8af4c64da04aae79901c729 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_80caa1a7a8eca506191d1bc428cdf2a7 = $(`<div id="html_80caa1a7a8eca506191d1bc428cdf2a7" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional El Edén</p>         <p><b>Ubicación:</b> Armenia</p>      </div>`)[0];
-                popup_060b2fd2c8af4c64da04aae79901c729.setContent(html_80caa1a7a8eca506191d1bc428cdf2a7);
-            
-        
 
-        marker_d70862fd52257fa391cc7aae3ad26eb4.bindPopup(popup_060b2fd2c8af4c64da04aae79901c729)
+
+    var marker_6371dced3c8b7125c4029a6f0bd24cd8 = L.marker(
+        [4.45278, -75.7664],
+        { "name": "Aeropuerto Internacional El Ed\u00e9n" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_75358cca4be30953321908a9b96897de = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_6371dced3c8b7125c4029a6f0bd24cd8.setIcon(icon_75358cca4be30953321908a9b96897de);
+
+
+    var popup_f0a6f9d81150957255666ba2ce7730b4 = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_ac9f2ccefece80b3c77ba9a2165f34ec = $(`<div id="html_ac9f2ccefece80b3c77ba9a2165f34ec" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional El Edén</p>         <p><b>Ubicación:</b> Armenia</p>      </div>`)[0];
+    popup_f0a6f9d81150957255666ba2ce7730b4.setContent(html_ac9f2ccefece80b3c77ba9a2165f34ec);
+
+
+
+    marker_6371dced3c8b7125c4029a6f0bd24cd8.bindPopup(popup_f0a6f9d81150957255666ba2ce7730b4)
         ;
 
-        
-    
-    
-            var marker_c8122ce9ecfad66606a5a1da0c3f9a10 = L.marker(
-                [10.8896, -74.7808],
-                {"name": "Aeropuerto Internacional Ernesto Cortissoz"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_a1f82244da799401791b3d3dd9b3dcaa = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_c8122ce9ecfad66606a5a1da0c3f9a10.setIcon(icon_a1f82244da799401791b3d3dd9b3dcaa);
-        
-    
-        var popup_0d820a5e4aa2433c478c272c037bf404 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_9338ace1f880c301c3771eae4e13d8c1 = $(`<div id="html_9338ace1f880c301c3771eae4e13d8c1" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional Ernesto Cortissoz</p>         <p><b>Ubicación:</b> Barranquilla</p>      </div>`)[0];
-                popup_0d820a5e4aa2433c478c272c037bf404.setContent(html_9338ace1f880c301c3771eae4e13d8c1);
-            
-        
 
-        marker_c8122ce9ecfad66606a5a1da0c3f9a10.bindPopup(popup_0d820a5e4aa2433c478c272c037bf404)
+
+    var marker_42fe39d0ec5b5b86d7690706de92acc8 = L.marker(
+        [10.8896, -74.7808],
+        { "name": "Aeropuerto Internacional Ernesto Cortissoz" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_2b5ce8f8cc6823e38040e56d10777101 = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_42fe39d0ec5b5b86d7690706de92acc8.setIcon(icon_2b5ce8f8cc6823e38040e56d10777101);
+
+
+    var popup_0cbb54f67db6039b4f0c7401c5468fe7 = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_8dfaf6e0f44cb36189a49193fa180222 = $(`<div id="html_8dfaf6e0f44cb36189a49193fa180222" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional Ernesto Cortissoz</p>         <p><b>Ubicación:</b> Barranquilla</p>      </div>`)[0];
+    popup_0cbb54f67db6039b4f0c7401c5468fe7.setContent(html_8dfaf6e0f44cb36189a49193fa180222);
+
+
+
+    marker_42fe39d0ec5b5b86d7690706de92acc8.bindPopup(popup_0cbb54f67db6039b4f0c7401c5468fe7)
         ;
 
-        
-    
-    
-            var marker_b6a2df7174426dc474fa1cb97a8f4bdb = L.marker(
-                [12.5836, -81.7112],
-                {"name": "Aeropuerto Internacional Gustavo Rojas Pinilla"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_5e68977757b9dcffd645a4bbb55be5b0 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_b6a2df7174426dc474fa1cb97a8f4bdb.setIcon(icon_5e68977757b9dcffd645a4bbb55be5b0);
-        
-    
-        var popup_3539cd7f2820c898a08174d85e85b4b3 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_eed1f06af08a194d1b10800605e15059 = $(`<div id="html_eed1f06af08a194d1b10800605e15059" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional Gustavo Rojas Pinilla</p>         <p><b>Ubicación:</b> San Andrés - Isla</p>      </div>`)[0];
-                popup_3539cd7f2820c898a08174d85e85b4b3.setContent(html_eed1f06af08a194d1b10800605e15059);
-            
-        
 
-        marker_b6a2df7174426dc474fa1cb97a8f4bdb.bindPopup(popup_3539cd7f2820c898a08174d85e85b4b3)
+
+    var marker_6c33de61411974eb6860b8e4167ebb4f = L.marker(
+        [12.5836, -81.7112],
+        { "name": "Aeropuerto Internacional Gustavo Rojas Pinilla" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_77de67326d032f1d9505be546a5f50be = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_6c33de61411974eb6860b8e4167ebb4f.setIcon(icon_77de67326d032f1d9505be546a5f50be);
+
+
+    var popup_6134dc55427bc859375c1242ebae7d1d = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_234b237520b7f329b6c11203825ded69 = $(`<div id="html_234b237520b7f329b6c11203825ded69" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional Gustavo Rojas Pinilla</p>         <p><b>Ubicación:</b> San Andrés - Isla</p>      </div>`)[0];
+    popup_6134dc55427bc859375c1242ebae7d1d.setContent(html_234b237520b7f329b6c11203825ded69);
+
+
+
+    marker_6c33de61411974eb6860b8e4167ebb4f.bindPopup(popup_6134dc55427bc859375c1242ebae7d1d)
         ;
 
-        
-    
-    
-            var marker_35db3fec05be8d818c92dfce6aa4b7a0 = L.marker(
-                [6.16454, -75.4231],
-                {"name": "Aeropuerto Internacional Jos\u00e9 Mar\u00eda C\u00f3rdova"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_31cef4b05dcaf1edb21e6ea6c90f42a5 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_35db3fec05be8d818c92dfce6aa4b7a0.setIcon(icon_31cef4b05dcaf1edb21e6ea6c90f42a5);
-        
-    
-        var popup_ee1b045bd4c51600e078cb1b155d6d1e = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_939b42e21fb2865cc40e2d5f851f288b = $(`<div id="html_939b42e21fb2865cc40e2d5f851f288b" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional José María Córdova</p>         <p><b>Ubicación:</b> Rionegro</p>      </div>`)[0];
-                popup_ee1b045bd4c51600e078cb1b155d6d1e.setContent(html_939b42e21fb2865cc40e2d5f851f288b);
-            
-        
 
-        marker_35db3fec05be8d818c92dfce6aa4b7a0.bindPopup(popup_ee1b045bd4c51600e078cb1b155d6d1e)
+
+    var marker_da3039d91c57b689dff19b4b21b0861d = L.marker(
+        [8.82374, -75.8258],
+        { "name": "Aeropuerto Internacional Los Garzones" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_7b496cb5924bf7a9c816aee119210406 = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_da3039d91c57b689dff19b4b21b0861d.setIcon(icon_7b496cb5924bf7a9c816aee119210406);
+
+
+    var popup_91e5041308ae4b5d0cf3a09857be32f9 = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_d0e61791fd245307cdfdf1c06eaeb155 = $(`<div id="html_d0e61791fd245307cdfdf1c06eaeb155" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional Los Garzones</p>         <p><b>Ubicación:</b> Montería</p>      </div>`)[0];
+    popup_91e5041308ae4b5d0cf3a09857be32f9.setContent(html_d0e61791fd245307cdfdf1c06eaeb155);
+
+
+
+    marker_da3039d91c57b689dff19b4b21b0861d.bindPopup(popup_91e5041308ae4b5d0cf3a09857be32f9)
         ;
 
-        
-    
-    
-            var marker_6b107332d100e74e42f87ee8cb960b4b = L.marker(
-                [8.82374, -75.8258],
-                {"name": "Aeropuerto Internacional Los Garzones"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_f5e970ce17c1d7a1f96d82153530ef89 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_6b107332d100e74e42f87ee8cb960b4b.setIcon(icon_f5e970ce17c1d7a1f96d82153530ef89);
-        
-    
-        var popup_b4496b89dc0b319cf624f2d9fb330836 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_1d2ca98a0e9a4822d39cf278f29e8c00 = $(`<div id="html_1d2ca98a0e9a4822d39cf278f29e8c00" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional Los Garzones</p>         <p><b>Ubicación:</b> Montería</p>      </div>`)[0];
-                popup_b4496b89dc0b319cf624f2d9fb330836.setContent(html_1d2ca98a0e9a4822d39cf278f29e8c00);
-            
-        
 
-        marker_6b107332d100e74e42f87ee8cb960b4b.bindPopup(popup_b4496b89dc0b319cf624f2d9fb330836)
+
+    var marker_a61102d3e5a52d1ff52f6167062ec27f = L.marker(
+        [4.81267, -75.7395],
+        { "name": "Aeropuerto Internacional Mateca\u00f1a" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_d4b27ac66a9f1183e3ee1072b4866ee9 = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_a61102d3e5a52d1ff52f6167062ec27f.setIcon(icon_d4b27ac66a9f1183e3ee1072b4866ee9);
+
+
+    var popup_14fa4d8082084f475b8fd13c07460532 = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_c9467eafbed31b4f0cbece5f86759a67 = $(`<div id="html_c9467eafbed31b4f0cbece5f86759a67" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional Matecaña</p>         <p><b>Ubicación:</b> Pereira</p>      </div>`)[0];
+    popup_14fa4d8082084f475b8fd13c07460532.setContent(html_c9467eafbed31b4f0cbece5f86759a67);
+
+
+
+    marker_a61102d3e5a52d1ff52f6167062ec27f.bindPopup(popup_14fa4d8082084f475b8fd13c07460532)
         ;
 
-        
-    
-    
-            var marker_52b303bab75d0fe6f94d66a8d44cd298 = L.marker(
-                [4.81267, -75.7395],
-                {"name": "Aeropuerto Internacional Mateca\u00f1a"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_a9967b6fc12194e88d1e5f34a2d68ca8 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_52b303bab75d0fe6f94d66a8d44cd298.setIcon(icon_a9967b6fc12194e88d1e5f34a2d68ca8);
-        
-    
-        var popup_3b019252a41cf59690e7273d4b2bc525 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_f7d6a32c286743a15211c2fda18b1006 = $(`<div id="html_f7d6a32c286743a15211c2fda18b1006" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional Matecaña</p>         <p><b>Ubicación:</b> Pereira</p>      </div>`)[0];
-                popup_3b019252a41cf59690e7273d4b2bc525.setContent(html_f7d6a32c286743a15211c2fda18b1006);
-            
-        
 
-        marker_52b303bab75d0fe6f94d66a8d44cd298.bindPopup(popup_3b019252a41cf59690e7273d4b2bc525)
+
+    var marker_d4a841afb97f11c360dbea302beea158 = L.marker(
+        [7.1265, -73.1848],
+        { "name": "Aeropuerto Internacional Palonegro" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_8042251c91fe30fdc860dc9d810db3fc = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_d4a841afb97f11c360dbea302beea158.setIcon(icon_8042251c91fe30fdc860dc9d810db3fc);
+
+
+    var popup_7aaeb34c8ed20b92c4fc968186876332 = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_8a5408b4d7caca12b6c3b3df9384012b = $(`<div id="html_8a5408b4d7caca12b6c3b3df9384012b" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional Palonegro</p>         <p><b>Ubicación:</b> Bucaramanga</p>      </div>`)[0];
+    popup_7aaeb34c8ed20b92c4fc968186876332.setContent(html_8a5408b4d7caca12b6c3b3df9384012b);
+
+
+
+    marker_d4a841afb97f11c360dbea302beea158.bindPopup(popup_7aaeb34c8ed20b92c4fc968186876332)
         ;
 
-        
-    
-    
-            var marker_be9533f0f37635248c27b37a01bc1f9d = L.marker(
-                [7.1265, -73.1848],
-                {"name": "Aeropuerto Internacional Palonegro"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_059c103d40e19b2c90e51ee53a4537da = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_be9533f0f37635248c27b37a01bc1f9d.setIcon(icon_059c103d40e19b2c90e51ee53a4537da);
-        
-    
-        var popup_0a2cee852d9c6bd91e3fecb6421b9d10 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_5dd072e8e8d28b1f4a7a7059d1a7597c = $(`<div id="html_5dd072e8e8d28b1f4a7a7059d1a7597c" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional Palonegro</p>         <p><b>Ubicación:</b> Bucaramanga</p>      </div>`)[0];
-                popup_0a2cee852d9c6bd91e3fecb6421b9d10.setContent(html_5dd072e8e8d28b1f4a7a7059d1a7597c);
-            
-        
 
-        marker_be9533f0f37635248c27b37a01bc1f9d.bindPopup(popup_0a2cee852d9c6bd91e3fecb6421b9d10)
+
+    var marker_f07ce7917092a622a119fc173a758080 = L.marker(
+        [10.4424, -75.513],
+        { "name": "Aeropuerto Internacional Rafael N\u00fa\u00f1ez" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_8e5b13ad8a7e83a278ffab451127bfc2 = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_f07ce7917092a622a119fc173a758080.setIcon(icon_8e5b13ad8a7e83a278ffab451127bfc2);
+
+
+    var popup_f0a1e287ef0556d0892d40315260007a = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_229ce39faff0cd6dad68ae12dd09d8ca = $(`<div id="html_229ce39faff0cd6dad68ae12dd09d8ca" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional Rafael Núñez</p>         <p><b>Ubicación:</b> Cartagena</p>      </div>`)[0];
+    popup_f0a1e287ef0556d0892d40315260007a.setContent(html_229ce39faff0cd6dad68ae12dd09d8ca);
+
+
+
+    marker_f07ce7917092a622a119fc173a758080.bindPopup(popup_f0a1e287ef0556d0892d40315260007a)
         ;
 
-        
-    
-    
-            var marker_af14183975388fda09be24c96878aac5 = L.marker(
-                [10.4424, -75.513],
-                {"name": "Aeropuerto Internacional Rafael N\u00fa\u00f1ez"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_02fbd296861652c120139e02cf36cb97 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_af14183975388fda09be24c96878aac5.setIcon(icon_02fbd296861652c120139e02cf36cb97);
-        
-    
-        var popup_09bae064da76987382571f7436a12f56 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_40656e4b2db15715222b9b1b3bf34364 = $(`<div id="html_40656e4b2db15715222b9b1b3bf34364" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional Rafael Núñez</p>         <p><b>Ubicación:</b> Cartagena</p>      </div>`)[0];
-                popup_09bae064da76987382571f7436a12f56.setContent(html_40656e4b2db15715222b9b1b3bf34364);
-            
-        
 
-        marker_af14183975388fda09be24c96878aac5.bindPopup(popup_09bae064da76987382571f7436a12f56)
+
+    var marker_7b26519191fc2692358929190d00eb01 = L.marker(
+        [11.1196, -74.2306],
+        { "name": "Aeropuerto Internacional Sim\u00f3n Bol\u00edvar" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_aafa881a4b4858db3a79706f8ed369d8 = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_7b26519191fc2692358929190d00eb01.setIcon(icon_aafa881a4b4858db3a79706f8ed369d8);
+
+
+    var popup_c70ac8fddcf7421b0645ebcaaf330517 = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_ed93aef673ea46394b37991e1f61886e = $(`<div id="html_ed93aef673ea46394b37991e1f61886e" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional Simón Bolívar</p>         <p><b>Ubicación:</b> Santa Marta</p>      </div>`)[0];
+    popup_c70ac8fddcf7421b0645ebcaaf330517.setContent(html_ed93aef673ea46394b37991e1f61886e);
+
+
+
+    marker_7b26519191fc2692358929190d00eb01.bindPopup(popup_c70ac8fddcf7421b0645ebcaaf330517)
         ;
 
-        
-    
-    
-            var marker_13428f7bc2936b445b2b20ba95a95cdd = L.marker(
-                [11.1196, -74.2306],
-                {"name": "Aeropuerto Internacional Sim\u00f3n Bol\u00edvar"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_1223c8b03042b8f78b2411672dc4bcd9 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_13428f7bc2936b445b2b20ba95a95cdd.setIcon(icon_1223c8b03042b8f78b2411672dc4bcd9);
-        
-    
-        var popup_ea505e60e1cc17c50f5d9d7d60c7aa64 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_b445374272878001a21372bd706b08e8 = $(`<div id="html_b445374272878001a21372bd706b08e8" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto Internacional Simón Bolívar</p>         <p><b>Ubicación:</b> Santa Marta</p>      </div>`)[0];
-                popup_ea505e60e1cc17c50f5d9d7d60c7aa64.setContent(html_b445374272878001a21372bd706b08e8);
-            
-        
 
-        marker_13428f7bc2936b445b2b20ba95a95cdd.bindPopup(popup_ea505e60e1cc17c50f5d9d7d60c7aa64)
+
+    var marker_e9036dca643c8775184f7b64202e3b8e = L.marker(
+        [10.435, -73.2495],
+        { "name": "Alfonso Lopez Pumarejo" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_3697fc5e2362f70d78b63e6ad74aea1d = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_e9036dca643c8775184f7b64202e3b8e.setIcon(icon_3697fc5e2362f70d78b63e6ad74aea1d);
+
+
+    var popup_962b550e9a64d1837d03668f0c0011b0 = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_372b01d346c8daea0806aa3910a160c5 = $(`<div id="html_372b01d346c8daea0806aa3910a160c5" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Alfonso Lopez Pumarejo</p>         <p><b>Ubicación:</b> Valledupar</p>      </div>`)[0];
+    popup_962b550e9a64d1837d03668f0c0011b0.setContent(html_372b01d346c8daea0806aa3910a160c5);
+
+
+
+    marker_e9036dca643c8775184f7b64202e3b8e.bindPopup(popup_962b550e9a64d1837d03668f0c0011b0)
         ;
 
-        
-    
-    
-            var marker_57809d04add0ba8d3ff7af23f8325b06 = L.marker(
-                [10.435, -73.2495],
-                {"name": "Alfonso Lopez Pumarejo"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_9d38090214463e2cb90df4ec59e79304 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_57809d04add0ba8d3ff7af23f8325b06.setIcon(icon_9d38090214463e2cb90df4ec59e79304);
-        
-    
-        var popup_aceaa20a43a94bcc4ce1d77cc5929f8c = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_b10ca0f823c275117b76c4f2661af705 = $(`<div id="html_b10ca0f823c275117b76c4f2661af705" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Alfonso Lopez Pumarejo</p>         <p><b>Ubicación:</b> Valledupar</p>      </div>`)[0];
-                popup_aceaa20a43a94bcc4ce1d77cc5929f8c.setContent(html_b10ca0f823c275117b76c4f2661af705);
-            
-        
 
-        marker_57809d04add0ba8d3ff7af23f8325b06.bindPopup(popup_aceaa20a43a94bcc4ce1d77cc5929f8c)
+
+    var marker_76b1a1ce0d71900dbad7211f98632ff0 = L.marker(
+        [11.5262, -72.926],
+        { "name": "Almirante Padilla" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_22dfb86c922c4c15e28ea62898624cb3 = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_76b1a1ce0d71900dbad7211f98632ff0.setIcon(icon_22dfb86c922c4c15e28ea62898624cb3);
+
+
+    var popup_32b45c9cc24b221dbfda8afcc99e44ba = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_f57e398a490968fa1d9d43d6ae320211 = $(`<div id="html_f57e398a490968fa1d9d43d6ae320211" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Almirante Padilla</p>         <p><b>Ubicación:</b> Riohacha</p>      </div>`)[0];
+    popup_32b45c9cc24b221dbfda8afcc99e44ba.setContent(html_f57e398a490968fa1d9d43d6ae320211);
+
+
+
+    marker_76b1a1ce0d71900dbad7211f98632ff0.bindPopup(popup_32b45c9cc24b221dbfda8afcc99e44ba)
         ;
 
-        
-    
-    
-            var marker_01d960abf47bab52abd2ac2989437d81 = L.marker(
-                [11.5262, -72.926],
-                {"name": "Almirante Padilla"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_299edda5c9e18ddac6f5eb5475342dbd = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_01d960abf47bab52abd2ac2989437d81.setIcon(icon_299edda5c9e18ddac6f5eb5475342dbd);
-        
-    
-        var popup_c87258e182848e1a6c9112248897ff44 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_985c38c51a2c998b982bd18943eb934a = $(`<div id="html_985c38c51a2c998b982bd18943eb934a" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Almirante Padilla</p>         <p><b>Ubicación:</b> Riohacha</p>      </div>`)[0];
-                popup_c87258e182848e1a6c9112248897ff44.setContent(html_985c38c51a2c998b982bd18943eb934a);
-            
-        
 
-        marker_01d960abf47bab52abd2ac2989437d81.bindPopup(popup_c87258e182848e1a6c9112248897ff44)
+
+    var marker_ffde53703be9ae5b42787089ed0456c1 = L.marker(
+        [1.39625, -77.2915],
+        { "name": "Antonio Nari\u00f1o" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_93bd542c7351f4a3cdddfc1d43e12e4b = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_ffde53703be9ae5b42787089ed0456c1.setIcon(icon_93bd542c7351f4a3cdddfc1d43e12e4b);
+
+
+    var popup_caa43ec9c86e2e15544865aefdda6474 = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_3c0d46057b16bc69138fd7678cad8d34 = $(`<div id="html_3c0d46057b16bc69138fd7678cad8d34" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Antonio Nariño</p>         <p><b>Ubicación:</b> Pasto</p>      </div>`)[0];
+    popup_caa43ec9c86e2e15544865aefdda6474.setContent(html_3c0d46057b16bc69138fd7678cad8d34);
+
+
+
+    marker_ffde53703be9ae5b42787089ed0456c1.bindPopup(popup_caa43ec9c86e2e15544865aefdda6474)
         ;
 
-        
-    
-    
-            var marker_3286a6907774bbcd614a16d952d2d4d9 = L.marker(
-                [1.39625, -77.2915],
-                {"name": "Antonio Nari\u00f1o"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_b45e476a91541edb00e445f0e07dfe40 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_3286a6907774bbcd614a16d952d2d4d9.setIcon(icon_b45e476a91541edb00e445f0e07dfe40);
-        
-    
-        var popup_6027b22c83f00a0b2b94a7dd96a6ccb9 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_f5ba535174f720b0595b216fab07218c = $(`<div id="html_f5ba535174f720b0595b216fab07218c" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Antonio Nariño</p>         <p><b>Ubicación:</b> Pasto</p>      </div>`)[0];
-                popup_6027b22c83f00a0b2b94a7dd96a6ccb9.setContent(html_f5ba535174f720b0595b216fab07218c);
-            
-        
 
-        marker_3286a6907774bbcd614a16d952d2d4d9.bindPopup(popup_6027b22c83f00a0b2b94a7dd96a6ccb9)
+
+    var marker_f6be54c3676f20395bbbcf49f9da0a80 = L.marker(
+        [2.95015, -75.294],
+        { "name": "Benito Salas Vargas" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_7a2c437a86c583c76f8675da07811d78 = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_f6be54c3676f20395bbbcf49f9da0a80.setIcon(icon_7a2c437a86c583c76f8675da07811d78);
+
+
+    var popup_cc7c5479fc74fd43d63da9426e1a80f9 = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_b0b0f5eab6f273970f5558a616a1948f = $(`<div id="html_b0b0f5eab6f273970f5558a616a1948f" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Benito Salas Vargas</p>         <p><b>Ubicación:</b> Neiva</p>      </div>`)[0];
+    popup_cc7c5479fc74fd43d63da9426e1a80f9.setContent(html_b0b0f5eab6f273970f5558a616a1948f);
+
+
+
+    marker_f6be54c3676f20395bbbcf49f9da0a80.bindPopup(popup_cc7c5479fc74fd43d63da9426e1a80f9)
         ;
 
-        
-    
-    
-            var marker_3cc464550906bb7f51702c4c68aad327 = L.marker(
-                [7.81196, -76.7164],
-                {"name": "Antonio Roldan Betancourt"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_d9bcca9a7f3ed82e36bfc2016b5acacd = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_3cc464550906bb7f51702c4c68aad327.setIcon(icon_d9bcca9a7f3ed82e36bfc2016b5acacd);
-        
-    
-        var popup_7e1b69743c7291b58d2b7ca82cf1b3a2 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_77c205433c3c2985e80e793f6b2a76d7 = $(`<div id="html_77c205433c3c2985e80e793f6b2a76d7" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Antonio Roldan Betancourt</p>         <p><b>Ubicación:</b> Carepa</p>      </div>`)[0];
-                popup_7e1b69743c7291b58d2b7ca82cf1b3a2.setContent(html_77c205433c3c2985e80e793f6b2a76d7);
-            
-        
 
-        marker_3cc464550906bb7f51702c4c68aad327.bindPopup(popup_7e1b69743c7291b58d2b7ca82cf1b3a2)
+
+    var marker_6ac0daffd54bbd5149bffbd5b122e8b1 = L.marker(
+        [3.85353, -67.9062],
+        { "name": "C\u00e9sar Gaviria Trujillo" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_189b9613e3e74f1d7879c15db2c8678a = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_6ac0daffd54bbd5149bffbd5b122e8b1.setIcon(icon_189b9613e3e74f1d7879c15db2c8678a);
+
+
+    var popup_633105a7c790ed6774f70c86bb3bd43d = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_2b2073feb841553632cb16794f8ba4f5 = $(`<div id="html_2b2073feb841553632cb16794f8ba4f5" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> César Gaviria Trujillo</p>         <p><b>Ubicación:</b> Puerto Inírida</p>      </div>`)[0];
+    popup_633105a7c790ed6774f70c86bb3bd43d.setContent(html_2b2073feb841553632cb16794f8ba4f5);
+
+
+
+    marker_6ac0daffd54bbd5149bffbd5b122e8b1.bindPopup(popup_633105a7c790ed6774f70c86bb3bd43d)
         ;
 
-        
-    
-    
-            var marker_c690c27c9d575173c72fec4cba491f1d = L.marker(
-                [9.28474, -74.8461],
-                {"name": "Baracoa"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_40307c116d6590e226b728c17e2c329d = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_c690c27c9d575173c72fec4cba491f1d.setIcon(icon_40307c116d6590e226b728c17e2c329d);
-        
-    
-        var popup_6f2ae2437ada3fdce69f3033815d4b48 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_c0fe490f5ea0445c83c60e71226ca7ef = $(`<div id="html_c0fe490f5ea0445c83c60e71226ca7ef" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Baracoa</p>         <p><b>Ubicación:</b> Magangué</p>      </div>`)[0];
-                popup_6f2ae2437ada3fdce69f3033815d4b48.setContent(html_c0fe490f5ea0445c83c60e71226ca7ef);
-            
-        
 
-        marker_c690c27c9d575173c72fec4cba491f1d.bindPopup(popup_6f2ae2437ada3fdce69f3033815d4b48)
+
+    var marker_66468dd8049af1a52d85edba162aeb8c = L.marker(
+        [5.69076, -76.6412],
+        { "name": "El Cara\u00f1o" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_b2fda74c9a623386f773c31a81dd45e6 = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_66468dd8049af1a52d85edba162aeb8c.setIcon(icon_b2fda74c9a623386f773c31a81dd45e6);
+
+
+    var popup_84c698d4734a06123b9a2d61bb187f18 = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_e09f3e6878892daecebf7a78706a13dc = $(`<div id="html_e09f3e6878892daecebf7a78706a13dc" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> El Caraño</p>         <p><b>Ubicación:</b> Quibdó</p>      </div>`)[0];
+    popup_84c698d4734a06123b9a2d61bb187f18.setContent(html_e09f3e6878892daecebf7a78706a13dc);
+
+
+
+    marker_66468dd8049af1a52d85edba162aeb8c.bindPopup(popup_84c698d4734a06123b9a2d61bb187f18)
         ;
 
-        
-    
-    
-            var marker_cb1554b7dd576736d281a5927c5d8dff = L.marker(
-                [2.95015, -75.294],
-                {"name": "Benito Salas Vargas"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_77883a0b0cf9fffdd090fa57ff8ad6cf = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_cb1554b7dd576736d281a5927c5d8dff.setIcon(icon_77883a0b0cf9fffdd090fa57ff8ad6cf);
-        
-    
-        var popup_7919cd3b29e2733a27d18c95c099d3c4 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_13fd56ec712cd648b3763bdd7b103f68 = $(`<div id="html_13fd56ec712cd648b3763bdd7b103f68" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Benito Salas Vargas</p>         <p><b>Ubicación:</b> Neiva</p>      </div>`)[0];
-                popup_7919cd3b29e2733a27d18c95c099d3c4.setContent(html_13fd56ec712cd648b3763bdd7b103f68);
-            
-        
 
-        marker_cb1554b7dd576736d281a5927c5d8dff.bindPopup(popup_7919cd3b29e2733a27d18c95c099d3c4)
+
+    var marker_7a330fe0bed155e398989a05e09eee07 = L.marker(
+        [1.25366, -70.2339],
+        { "name": "Fabio Alberto Le\u00f3n Bentley" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_b98f98f24355438582c1f3d1394029a9 = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_7a330fe0bed155e398989a05e09eee07.setIcon(icon_b98f98f24355438582c1f3d1394029a9);
+
+
+    var popup_fc6cd6c71d4161f7211ef9d6979da01b = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_aca3ead5fbe96edd57ad97b0aa098cad = $(`<div id="html_aca3ead5fbe96edd57ad97b0aa098cad" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Fabio Alberto León Bentley</p>         <p><b>Ubicación:</b> Mitú</p>      </div>`)[0];
+    popup_fc6cd6c71d4161f7211ef9d6979da01b.setContent(html_aca3ead5fbe96edd57ad97b0aa098cad);
+
+
+
+    marker_7a330fe0bed155e398989a05e09eee07.bindPopup(popup_fc6cd6c71d4161f7211ef9d6979da01b)
         ;
 
-        
-    
-    
-            var marker_ea8326deeaab89377c99fb7b8713165b = L.marker(
-                [3.85353, -67.9062],
-                {"name": "C\u00e9sar Gaviria Trujillo"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_0ad7c34f9b6ab11830466722370b0344 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_ea8326deeaab89377c99fb7b8713165b.setIcon(icon_0ad7c34f9b6ab11830466722370b0344);
-        
-    
-        var popup_8d4e032f0dd1ae39917a208af6f97576 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_4876d711b4468ba7acb6b3a3c4010970 = $(`<div id="html_4876d711b4468ba7acb6b3a3c4010970" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> César Gaviria Trujillo</p>         <p><b>Ubicación:</b> Puerto Inírida</p>      </div>`)[0];
-                popup_8d4e032f0dd1ae39917a208af6f97576.setContent(html_4876d711b4468ba7acb6b3a3c4010970);
-            
-        
 
-        marker_ea8326deeaab89377c99fb7b8713165b.bindPopup(popup_8d4e032f0dd1ae39917a208af6f97576)
+
+    var marker_9007db598991fe920a83d274d4be477f = L.marker(
+        [6.18472, -67.4932],
+        { "name": "Germ\u00e1n Olano" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_8d020d0968d245d1ead8140aefd293d8 = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_9007db598991fe920a83d274d4be477f.setIcon(icon_8d020d0968d245d1ead8140aefd293d8);
+
+
+    var popup_95510126d35593d6618653ba9d40500c = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_07515b82a39518f5e14136eec1d1cdff = $(`<div id="html_07515b82a39518f5e14136eec1d1cdff" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Germán Olano</p>         <p><b>Ubicación:</b> Puerto Carreño</p>      </div>`)[0];
+    popup_95510126d35593d6618653ba9d40500c.setContent(html_07515b82a39518f5e14136eec1d1cdff);
+
+
+
+    marker_9007db598991fe920a83d274d4be477f.bindPopup(popup_95510126d35593d6618653ba9d40500c)
         ;
 
-        
-    
-    
-            var marker_e77e7e28d2c0dbd12275ab688e71e70d = L.marker(
-                [1.85777, -76.0857],
-                {"name": "Contador"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_9853660f2deb55bdcbfcbd88c0de4a8c = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_e77e7e28d2c0dbd12275ab688e71e70d.setIcon(icon_9853660f2deb55bdcbfcbd88c0de4a8c);
-        
-    
-        var popup_04cc1404219c4c8ac5c7a78916c77431 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_8ca30c96a9a379a5579d99f028f49679 = $(`<div id="html_8ca30c96a9a379a5579d99f028f49679" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Contador</p>         <p><b>Ubicación:</b> Pitalito</p>      </div>`)[0];
-                popup_04cc1404219c4c8ac5c7a78916c77431.setContent(html_8ca30c96a9a379a5579d99f028f49679);
-            
-        
 
-        marker_e77e7e28d2c0dbd12275ab688e71e70d.bindPopup(popup_04cc1404219c4c8ac5c7a78916c77431)
+
+    var marker_3d1f9edf3a3acd4e51f7d31b0713ea82 = L.marker(
+        [2.4544, -76.6093],
+        { "name": "Guillermo Le\u00f3n Valencia" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_96662674f1300a33b30c5f6a665b420d = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_3d1f9edf3a3acd4e51f7d31b0713ea82.setIcon(icon_96662674f1300a33b30c5f6a665b420d);
+
+
+    var popup_452a34aee7bc90b1bff6ec4833f72ca1 = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_b3bb7fe0e4b7d8b5f64de939801b76a8 = $(`<div id="html_b3bb7fe0e4b7d8b5f64de939801b76a8" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Guillermo León Valencia</p>         <p><b>Ubicación:</b> Popayán</p>      </div>`)[0];
+    popup_452a34aee7bc90b1bff6ec4833f72ca1.setContent(html_b3bb7fe0e4b7d8b5f64de939801b76a8);
+
+
+
+    marker_3d1f9edf3a3acd4e51f7d31b0713ea82.bindPopup(popup_452a34aee7bc90b1bff6ec4833f72ca1)
         ;
 
-        
-    
-    
-            var marker_73e44973bd8c6b4c543d59b964b06697 = L.marker(
-                [2.15217, -74.7663],
-                {"name": "Eduardo Falla Solano"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_a036a2c2884b7511f516282218069ffe = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_73e44973bd8c6b4c543d59b964b06697.setIcon(icon_a036a2c2884b7511f516282218069ffe);
-        
-    
-        var popup_8c1dd2d1ce75a5d6a5f3db78f66206bd = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_ef0ec2317031a845c01a8099d7f136ca = $(`<div id="html_ef0ec2317031a845c01a8099d7f136ca" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Eduardo Falla Solano</p>         <p><b>Ubicación:</b> San Vicente Del Caguán</p>      </div>`)[0];
-                popup_8c1dd2d1ce75a5d6a5f3db78f66206bd.setContent(html_ef0ec2317031a845c01a8099d7f136ca);
-            
-        
 
-        marker_73e44973bd8c6b4c543d59b964b06697.bindPopup(popup_8c1dd2d1ce75a5d6a5f3db78f66206bd)
+
+    var marker_21eb56d7f7779c4eee98ab16894f7d48 = L.marker(
+        [1.58919, -75.5644],
+        { "name": "Gustavo Artunduaga Paredes" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_fe4d62be966e164c07cbcef0335669e6 = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_21eb56d7f7779c4eee98ab16894f7d48.setIcon(icon_fe4d62be966e164c07cbcef0335669e6);
+
+
+    var popup_d11f68451a0e3003d5b8c4e2c5266bd3 = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_c032dad76e963eca4fca3906838d033a = $(`<div id="html_c032dad76e963eca4fca3906838d033a" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Gustavo Artunduaga Paredes</p>         <p><b>Ubicación:</b> Florencia</p>      </div>`)[0];
+    popup_d11f68451a0e3003d5b8c4e2c5266bd3.setContent(html_c032dad76e963eca4fca3906838d033a);
+
+
+
+    marker_21eb56d7f7779c4eee98ab16894f7d48.bindPopup(popup_d11f68451a0e3003d5b8c4e2c5266bd3)
         ;
 
-        
-    
-    
-            var marker_89e5e25e0648578c23b3b02c63d6d6a2 = L.marker(
-                [5.69076, -76.6412],
-                {"name": "El Cara\u00f1o"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_b70e336d06aa937cf188c85d207f6e13 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_89e5e25e0648578c23b3b02c63d6d6a2.setIcon(icon_b70e336d06aa937cf188c85d207f6e13);
-        
-    
-        var popup_f17b862f92fbda66d6f36fab2cf0a1ef = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_ee489b639fbb654ab54cc019f77ad546 = $(`<div id="html_ee489b639fbb654ab54cc019f77ad546" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> El Caraño</p>         <p><b>Ubicación:</b> Quibdó</p>      </div>`)[0];
-                popup_f17b862f92fbda66d6f36fab2cf0a1ef.setContent(html_ee489b639fbb654ab54cc019f77ad546);
-            
-        
 
-        marker_89e5e25e0648578c23b3b02c63d6d6a2.bindPopup(popup_f17b862f92fbda66d6f36fab2cf0a1ef)
+
+    var marker_46aed35946e481b4abd0a703263c9296 = L.marker(
+        [2.57969, -72.6394],
+        { "name": "Jorge Enrique Gonz\u00e1lez" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_792d77bbdd3b38d1dea3d6e363220362 = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_46aed35946e481b4abd0a703263c9296.setIcon(icon_792d77bbdd3b38d1dea3d6e363220362);
+
+
+    var popup_c0a3b37c90a20f4c2fc2667a2087c011 = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_11b418ba5ed7174493b0a4d85c42976e = $(`<div id="html_11b418ba5ed7174493b0a4d85c42976e" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Jorge Enrique González</p>         <p><b>Ubicación:</b> San José Del Guaviare</p>      </div>`)[0];
+    popup_c0a3b37c90a20f4c2fc2667a2087c011.setContent(html_11b418ba5ed7174493b0a4d85c42976e);
+
+
+
+    marker_46aed35946e481b4abd0a703263c9296.bindPopup(popup_c0a3b37c90a20f4c2fc2667a2087c011)
         ;
 
-        
-    
-    
-            var marker_b1b1c096cf12d81bee2bb37aab39a1cf = L.marker(
-                [13.357461, -81.357977],
-                {"name": "El Embrujo"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_c79a3ee499ec055c74315dece17da4b2 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_b1b1c096cf12d81bee2bb37aab39a1cf.setIcon(icon_c79a3ee499ec055c74315dece17da4b2);
-        
-    
-        var popup_cc32edeb88c2d9a8b28c996b64854db3 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_2ca1a1dd09c3dd858393e9204474cde0 = $(`<div id="html_2ca1a1dd09c3dd858393e9204474cde0" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> El Embrujo</p>         <p><b>Ubicación:</b> Providencia</p>      </div>`)[0];
-                popup_cc32edeb88c2d9a8b28c996b64854db3.setContent(html_2ca1a1dd09c3dd858393e9204474cde0);
-            
-        
 
-        marker_b1b1c096cf12d81bee2bb37aab39a1cf.bindPopup(popup_cc32edeb88c2d9a8b28c996b64854db3)
+
+    var marker_bd9db6d9368c9de27bb966dd8b68a383 = L.marker(
+        [5.0296, -75.4647],
+        { "name": "La Nubia" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_ea4c76f62b3637a9b530a901e26471c8 = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_bd9db6d9368c9de27bb966dd8b68a383.setIcon(icon_ea4c76f62b3637a9b530a901e26471c8);
+
+
+    var popup_bdcc93f12c4e5a23efd94d71fb97e63a = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_043d92eb2acedfbeb676f9dd8cf33eac = $(`<div id="html_043d92eb2acedfbeb676f9dd8cf33eac" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> La Nubia</p>         <p><b>Ubicación:</b> Manizales</p>      </div>`)[0];
+    popup_bdcc93f12c4e5a23efd94d71fb97e63a.setContent(html_043d92eb2acedfbeb676f9dd8cf33eac);
+
+
+
+    marker_bd9db6d9368c9de27bb966dd8b68a383.bindPopup(popup_bdcc93f12c4e5a23efd94d71fb97e63a)
         ;
 
-        
-    
-    
-            var marker_08ee20f5bc958866e7393bc78e88c3f6 = L.marker(
-                [7.59647, -74.8089],
-                {"name": "El Tom\u00edn"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_a75b8abcddc9a826f6a7b99007b65ec1 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_08ee20f5bc958866e7393bc78e88c3f6.setIcon(icon_a75b8abcddc9a826f6a7b99007b65ec1);
-        
-    
-        var popup_551e9923db494c9f22959406688db242 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_ed265a78de77c6b5dcb0d0ed5bf9853b = $(`<div id="html_ed265a78de77c6b5dcb0d0ed5bf9853b" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> El Tomín</p>         <p><b>Ubicación:</b> El Bagre</p>      </div>`)[0];
-                popup_551e9923db494c9f22959406688db242.setContent(html_ed265a78de77c6b5dcb0d0ed5bf9853b);
-            
-        
 
-        marker_08ee20f5bc958866e7393bc78e88c3f6.bindPopup(popup_551e9923db494c9f22959406688db242)
+
+    var marker_d9f867e235838400f6a50cf300b6cbe1 = L.marker(
+        [6.220549, -75.590582],
+        { "name": "Olaya Herrera" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_a3ea5d6c7c0f2ebc4b377cc2b4cb9b22 = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_d9f867e235838400f6a50cf300b6cbe1.setIcon(icon_a3ea5d6c7c0f2ebc4b377cc2b4cb9b22);
+
+
+    var popup_8d8a2ed4788bdd5b201811e81ef8f4a0 = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_5b175fa4cf2ed9cb825b070360493d4f = $(`<div id="html_5b175fa4cf2ed9cb825b070360493d4f" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Olaya Herrera</p>         <p><b>Ubicación:</b> Medellín</p>      </div>`)[0];
+    popup_8d8a2ed4788bdd5b201811e81ef8f4a0.setContent(html_5b175fa4cf2ed9cb825b070360493d4f);
+
+
+
+    marker_d9f867e235838400f6a50cf300b6cbe1.bindPopup(popup_8d8a2ed4788bdd5b201811e81ef8f4a0)
         ;
 
-        
-    
-    
-            var marker_2d547b9a8bfc463ebbe9b0f60ea7ecc5 = L.marker(
-                [1.25366, -70.2339],
-                {"name": "Fabio Alberto Le\u00f3n Bentley"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_7b5adc52177604587b9671777cc9f5df = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_2d547b9a8bfc463ebbe9b0f60ea7ecc5.setIcon(icon_7b5adc52177604587b9671777cc9f5df);
-        
-    
-        var popup_e821721bb60df9dd71f49cb790dbf8b0 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_05a447b1dc14a91b5e601a385a9ebd1b = $(`<div id="html_05a447b1dc14a91b5e601a385a9ebd1b" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Fabio Alberto León Bentley</p>         <p><b>Ubicación:</b> Mitú</p>      </div>`)[0];
-                popup_e821721bb60df9dd71f49cb790dbf8b0.setContent(html_05a447b1dc14a91b5e601a385a9ebd1b);
-            
-        
 
-        marker_2d547b9a8bfc463ebbe9b0f60ea7ecc5.bindPopup(popup_e821721bb60df9dd71f49cb790dbf8b0)
+
+    var marker_952c3c28411b1dada14b4982f975ef9a = L.marker(
+        [4.42161, -75.1333],
+        { "name": "Perales" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_3987580805807ff60062510221fbf26a = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_952c3c28411b1dada14b4982f975ef9a.setIcon(icon_3987580805807ff60062510221fbf26a);
+
+
+    var popup_c25270e7492799c82a90f9d4e7b13931 = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_f927e1097a29f97aa093119d22de38e4 = $(`<div id="html_f927e1097a29f97aa093119d22de38e4" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Perales</p>         <p><b>Ubicación:</b> Ibagué</p>      </div>`)[0];
+    popup_c25270e7492799c82a90f9d4e7b13931.setContent(html_f927e1097a29f97aa093119d22de38e4);
+
+
+
+    marker_952c3c28411b1dada14b4982f975ef9a.bindPopup(popup_c25270e7492799c82a90f9d4e7b13931)
         ;
 
-        
-    
-    
-            var marker_9ee83f69c492af417acabe8609f7c240 = L.marker(
-                [6.45108, -71.7603],
-                {"name": "Gabriel Vargas Santos"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_5c4bfe669aca150df09a4d72d1b632ed = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_9ee83f69c492af417acabe8609f7c240.setIcon(icon_5c4bfe669aca150df09a4d72d1b632ed);
-        
-    
-        var popup_cebf7df7b820db8eead4f445476e6794 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_a87fc456704a52c2fddf9fb51f112887 = $(`<div id="html_a87fc456704a52c2fddf9fb51f112887" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Gabriel Vargas Santos</p>         <p><b>Ubicación:</b> Tame</p>      </div>`)[0];
-                popup_cebf7df7b820db8eead4f445476e6794.setContent(html_a87fc456704a52c2fddf9fb51f112887);
-            
-        
 
-        marker_9ee83f69c492af417acabe8609f7c240.bindPopup(popup_cebf7df7b820db8eead4f445476e6794)
+
+    var marker_9f9344aae8239e60f53ace98d7c88497 = L.marker(
+        [7.06888, -70.7369],
+        { "name": "Santiago P\u00e9rez Quiroz" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_4a4dd210a6bb3ca29a9769cf87154db0 = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_9f9344aae8239e60f53ace98d7c88497.setIcon(icon_4a4dd210a6bb3ca29a9769cf87154db0);
+
+
+    var popup_1817c3280a0cce0f912d932b5d79855f = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_0a5c2bc286c6b1ab3a10645d8f746e5e = $(`<div id="html_0a5c2bc286c6b1ab3a10645d8f746e5e" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Santiago Pérez Quiroz</p>         <p><b>Ubicación:</b> Arauca</p>      </div>`)[0];
+    popup_1817c3280a0cce0f912d932b5d79855f.setContent(html_0a5c2bc286c6b1ab3a10645d8f746e5e);
+
+
+
+    marker_9f9344aae8239e60f53ace98d7c88497.bindPopup(popup_1817c3280a0cce0f912d932b5d79855f)
         ;
 
-        
-    
-    
-            var marker_29c17ce92217ee55dc5f97cf71156d58 = L.marker(
-                [3.81963, -76.9898],
-                {"name": "Gerardo Tovar L\u00f3pez"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_9b87c50f55e620bc0da4cc21fd444964 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_29c17ce92217ee55dc5f97cf71156d58.setIcon(icon_9b87c50f55e620bc0da4cc21fd444964);
-        
-    
-        var popup_05e4831697fc4ae9a782220af85695ab = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_d56fe5929ec7029518fd94e3326f843f = $(`<div id="html_d56fe5929ec7029518fd94e3326f843f" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Gerardo Tovar López</p>         <p><b>Ubicación:</b> Buenaventura</p>      </div>`)[0];
-                popup_05e4831697fc4ae9a782220af85695ab.setContent(html_d56fe5929ec7029518fd94e3326f843f);
-            
-        
 
-        marker_29c17ce92217ee55dc5f97cf71156d58.bindPopup(popup_05e4831697fc4ae9a782220af85695ab)
+
+    var marker_f80e1701a8e741dafd6643070626c781 = L.marker(
+        [4.16787, -73.6138],
+        { "name": "Vanguardia" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_4be6107b4925b46d5e068d32a3acb18f = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_f80e1701a8e741dafd6643070626c781.setIcon(icon_4be6107b4925b46d5e068d32a3acb18f);
+
+
+    var popup_cd101778848e2b739b537a9df134bc22 = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_47414ba57bfd058fdcbf52856f1d46c8 = $(`<div id="html_47414ba57bfd058fdcbf52856f1d46c8" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Vanguardia</p>         <p><b>Ubicación:</b> Villavicencio</p>      </div>`)[0];
+    popup_cd101778848e2b739b537a9df134bc22.setContent(html_47414ba57bfd058fdcbf52856f1d46c8);
+
+
+
+    marker_f80e1701a8e741dafd6643070626c781.bindPopup(popup_cd101778848e2b739b537a9df134bc22)
         ;
 
-        
-    
-    
-            var marker_4273c24489b453bf309ab19972babdb4 = L.marker(
-                [6.18472, -67.4932],
-                {"name": "Germ\u00e1n Olano"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_9741c219ab9aaf87abfa0e88654b85fd = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_4273c24489b453bf309ab19972babdb4.setIcon(icon_9741c219ab9aaf87abfa0e88654b85fd);
-        
-    
-        var popup_bab34e22708f095dc00bea2ab9951db6 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_dd4a74aaa0980e124b5d69cf71b4a7fd = $(`<div id="html_dd4a74aaa0980e124b5d69cf71b4a7fd" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Germán Olano</p>         <p><b>Ubicación:</b> Puerto Carreño</p>      </div>`)[0];
-                popup_bab34e22708f095dc00bea2ab9951db6.setContent(html_dd4a74aaa0980e124b5d69cf71b4a7fd);
-            
-        
 
-        marker_4273c24489b453bf309ab19972babdb4.bindPopup(popup_bab34e22708f095dc00bea2ab9951db6)
+
+    var marker_9315b59aaab0291713b0d0551387e20a = L.marker(
+        [5.5436994, -73.3433583942015],
+        { "name": "Aeropuerto General Gustavo Rojas Pinilla de Tunja" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_f6cd5bfd32a0901310d70d268ecb2082 = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_9315b59aaab0291713b0d0551387e20a.setIcon(icon_f6cd5bfd32a0901310d70d268ecb2082);
+
+
+    var popup_a75200ebcd88a5654a3ce1b40675377d = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_bd42021b441de97a2ec4abad8dcfc2b0 = $(`<div id="html_bd42021b441de97a2ec4abad8dcfc2b0" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto General Gustavo Rojas Pinilla de Tunja</p>         <p><b>Ubicación:</b> Tunja</p>      </div>`)[0];
+    popup_a75200ebcd88a5654a3ce1b40675377d.setContent(html_bd42021b441de97a2ec4abad8dcfc2b0);
+
+
+
+    marker_9315b59aaab0291713b0d0551387e20a.bindPopup(popup_a75200ebcd88a5654a3ce1b40675377d)
         ;
 
-        
-    
-    
-            var marker_a909af386d7e1f238d1b90ae09b4ec67 = L.marker(
-                [2.4544, -76.6093],
-                {"name": "Guillermo Le\u00f3n Valencia"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_f1ffb38ef6848ea8cbcc9429d48d60ba = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_a909af386d7e1f238d1b90ae09b4ec67.setIcon(icon_f1ffb38ef6848ea8cbcc9429d48d60ba);
-        
-    
-        var popup_3af577fadbc1bd20014a1b20b96e4fe5 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_66262a494389db6ffb06efd9c3149a62 = $(`<div id="html_66262a494389db6ffb06efd9c3149a62" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Guillermo León Valencia</p>         <p><b>Ubicación:</b> Popayán</p>      </div>`)[0];
-                popup_3af577fadbc1bd20014a1b20b96e4fe5.setContent(html_66262a494389db6ffb06efd9c3149a62);
-            
-        
 
-        marker_a909af386d7e1f238d1b90ae09b4ec67.bindPopup(popup_3af577fadbc1bd20014a1b20b96e4fe5)
+
+    var marker_4ae783a884c9ac7f5e261ac38c8a90fd = L.marker(
+        [9.33274, -75.2856],
+        { "name": "Las Brujas" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_69a28cf3ffb7e8f01ef3b35fdf02ac22 = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_4ae783a884c9ac7f5e261ac38c8a90fd.setIcon(icon_69a28cf3ffb7e8f01ef3b35fdf02ac22);
+
+
+    var popup_251868fb71f926a3ae59fd2650eb0dee = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_b8cbe01d0767d33a30195aef74c85f64 = $(`<div id="html_b8cbe01d0767d33a30195aef74c85f64" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Las Brujas</p>         <p><b>Ubicación:</b> Corozal</p>      </div>`)[0];
+    popup_251868fb71f926a3ae59fd2650eb0dee.setContent(html_b8cbe01d0767d33a30195aef74c85f64);
+
+
+
+    marker_4ae783a884c9ac7f5e261ac38c8a90fd.bindPopup(popup_251868fb71f926a3ae59fd2650eb0dee)
         ;
 
-        
-    
-    
-            var marker_760cd570371ce014aeb67fc199dceb95 = L.marker(
-                [1.58919, -75.5644],
-                {"name": "Gustavo Artunduaga Paredes"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_779acb71651a0e2ee7d633de5ca6da8c = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_760cd570371ce014aeb67fc199dceb95.setIcon(icon_779acb71651a0e2ee7d633de5ca6da8c);
-        
-    
-        var popup_6a160b6a8ee3c1737ab96c7e8118fc1d = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_765f5b99e562074bd81f2f431d86783d = $(`<div id="html_765f5b99e562074bd81f2f431d86783d" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Gustavo Artunduaga Paredes</p>         <p><b>Ubicación:</b> Florencia</p>      </div>`)[0];
-                popup_6a160b6a8ee3c1737ab96c7e8118fc1d.setContent(html_765f5b99e562074bd81f2f431d86783d);
-            
-        
 
-        marker_760cd570371ce014aeb67fc199dceb95.bindPopup(popup_6a160b6a8ee3c1737ab96c7e8118fc1d)
+
+    var marker_f3768d69799878af3f1c5716948e1547 = L.marker(
+        [0.98126905, -76.6042239840167],
+        { "name": "Aeropuerto de Cananguchal" }
+    ).addTo(map_be448aef8317b899d267abc2768059e0);
+
+
+    var icon_cb4b65707705a47a9313b97e855566bc = L.AwesomeMarkers.icon(
+        { "extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon" }
+    );
+    marker_f3768d69799878af3f1c5716948e1547.setIcon(icon_cb4b65707705a47a9313b97e855566bc);
+
+
+    var popup_4e33d8474918e9fc74fcfe7fd57b6df2 = L.popup({ "maxWidth": "100%" });
+
+
+
+    var html_d5cd60eeca51a726e010a2ff7440b472 = $(`<div id="html_d5cd60eeca51a726e010a2ff7440b472" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Aeropuerto de Cananguchal</p>         <p><b>Ubicación:</b> Mocoa</p>      </div>`)[0];
+    popup_4e33d8474918e9fc74fcfe7fd57b6df2.setContent(html_d5cd60eeca51a726e010a2ff7440b472);
+
+
+
+    marker_f3768d69799878af3f1c5716948e1547.bindPopup(popup_4e33d8474918e9fc74fcfe7fd57b6df2)
         ;
 
-        
-    
-    
-            var marker_393784b866fbaf7af02af2be2ee876ca = L.marker(
-                [2.57969, -72.6394],
-                {"name": "Jorge Enrique Gonz\u00e1lez"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_7b1d0541e3252da4b0abc50cecd91441 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_393784b866fbaf7af02af2be2ee876ca.setIcon(icon_7b1d0541e3252da4b0abc50cecd91441);
-        
-    
-        var popup_674f27997ba027bbe4d1ebb15b4c46d5 = L.popup({"maxWidth": "100%"});
 
-        
-            
-                var html_50cb10496d78c7eb920618a96e49f787 = $(`<div id="html_50cb10496d78c7eb920618a96e49f787" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Jorge Enrique González</p>         <p><b>Ubicación:</b> San José Del Guaviare</p>      </div>`)[0];
-                popup_674f27997ba027bbe4d1ebb15b4c46d5.setContent(html_50cb10496d78c7eb920618a96e49f787);
-            
-        
 
-        marker_393784b866fbaf7af02af2be2ee876ca.bindPopup(popup_674f27997ba027bbe4d1ebb15b4c46d5)
-        ;
-
-        
-    
-    
-            var marker_e7e5cbcd86c2aec1600c60a110a5c184 = L.marker(
-                [11.2325, -72.4901],
-                {"name": "Jorge Isaacs"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_0b9f4698502051680c9a7e21f4eca5b5 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_e7e5cbcd86c2aec1600c60a110a5c184.setIcon(icon_0b9f4698502051680c9a7e21f4eca5b5);
-        
-    
-        var popup_40a4a42da38481a2a2ad0c2590388462 = L.popup({"maxWidth": "100%"});
-
-        
-            
-                var html_fb6fd03ea3f04aaff2325033bc933502 = $(`<div id="html_fb6fd03ea3f04aaff2325033bc933502" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Jorge Isaacs</p>         <p><b>Ubicación:</b> Maicao</p>      </div>`)[0];
-                popup_40a4a42da38481a2a2ad0c2590388462.setContent(html_fb6fd03ea3f04aaff2325033bc933502);
-            
-        
-
-        marker_e7e5cbcd86c2aec1600c60a110a5c184.bindPopup(popup_40a4a42da38481a2a2ad0c2590388462)
-        ;
-
-        
-    
-    
-            var marker_aca47edb57c544b0f2ac1fa16d09d6b2 = L.marker(
-                [6.20292, -77.3947],
-                {"name": "Jos\u00e9 Celestino Mutis"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_e1eeae7a57d100b427a81c7c6d9bd496 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_aca47edb57c544b0f2ac1fa16d09d6b2.setIcon(icon_e1eeae7a57d100b427a81c7c6d9bd496);
-        
-    
-        var popup_b86a6f560bc43bb1c7144dc5e6d45bb4 = L.popup({"maxWidth": "100%"});
-
-        
-            
-                var html_952665a1591d9b4d9809fa88ccfd66c0 = $(`<div id="html_952665a1591d9b4d9809fa88ccfd66c0" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> José Celestino Mutis</p>         <p><b>Ubicación:</b> Bahía Solano</p>      </div>`)[0];
-                popup_b86a6f560bc43bb1c7144dc5e6d45bb4.setContent(html_952665a1591d9b4d9809fa88ccfd66c0);
-            
-        
-
-        marker_aca47edb57c544b0f2ac1fa16d09d6b2.bindPopup(popup_b86a6f560bc43bb1c7144dc5e6d45bb4)
-        ;
-
-        
-    
-    
-            var marker_f7d00e8989f2b257f99be3bd2bba205b = L.marker(
-                [2.57013, -77.897969],
-                {"name": "Juan Casiano Sol\u00eds"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_fd6040a0ec929794530ef55f359ceeeb = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_f7d00e8989f2b257f99be3bd2bba205b.setIcon(icon_fd6040a0ec929794530ef55f359ceeeb);
-        
-    
-        var popup_6bf1742f15f82c1bd6e205bc27ae532a = L.popup({"maxWidth": "100%"});
-
-        
-            
-                var html_1824d2da216e9636acd3c961189a742a = $(`<div id="html_1824d2da216e9636acd3c961189a742a" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Juan Casiano Solís</p>         <p><b>Ubicación:</b> Guapi</p>      </div>`)[0];
-                popup_6bf1742f15f82c1bd6e205bc27ae532a.setContent(html_1824d2da216e9636acd3c961189a742a);
-            
-        
-
-        marker_f7d00e8989f2b257f99be3bd2bba205b.bindPopup(popup_6bf1742f15f82c1bd6e205bc27ae532a)
-        ;
-
-        
-    
-    
-            var marker_764257fe7b1cbe0cc8b75c23b225504b = L.marker(
-                [7.96847, -75.1985],
-                {"name": "Juan H. White"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_5056c79894955c9cd49803c0ddd08528 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_764257fe7b1cbe0cc8b75c23b225504b.setIcon(icon_5056c79894955c9cd49803c0ddd08528);
-        
-    
-        var popup_fdaeeb330fff658ca30b99852168ed5a = L.popup({"maxWidth": "100%"});
-
-        
-            
-                var html_94c777b5b08bf86a1f84259a2006448e = $(`<div id="html_94c777b5b08bf86a1f84259a2006448e" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Juan H. White</p>         <p><b>Ubicación:</b> Caucasia</p>      </div>`)[0];
-                popup_fdaeeb330fff658ca30b99852168ed5a.setContent(html_94c777b5b08bf86a1f84259a2006448e);
-            
-        
-
-        marker_764257fe7b1cbe0cc8b75c23b225504b.bindPopup(popup_fdaeeb330fff658ca30b99852168ed5a)
-        ;
-
-        
-    
-    
-            var marker_992b1e03b4d05089f8e74ce3e316287b = L.marker(
-                [1.81442, -78.7492],
-                {"name": "La Florida"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_552f49e7d439ae7ee6a0cff58ef5402d = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_992b1e03b4d05089f8e74ce3e316287b.setIcon(icon_552f49e7d439ae7ee6a0cff58ef5402d);
-        
-    
-        var popup_073fa759d9a54e0d6215e133b0f224ae = L.popup({"maxWidth": "100%"});
-
-        
-            
-                var html_e398f1a8914daa8f305abf03ed368306 = $(`<div id="html_e398f1a8914daa8f305abf03ed368306" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> La Florida</p>         <p><b>Ubicación:</b> Tumaco</p>      </div>`)[0];
-                popup_073fa759d9a54e0d6215e133b0f224ae.setContent(html_e398f1a8914daa8f305abf03ed368306);
-            
-        
-
-        marker_992b1e03b4d05089f8e74ce3e316287b.bindPopup(popup_073fa759d9a54e0d6215e133b0f224ae)
-        ;
-
-        
-    
-    
-            var marker_50398ec56c6b44d3039b183d1e418b5c = L.marker(
-                [5.0296, -75.4647],
-                {"name": "La Nubia"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_34adc936c40355b7cfa14f0847fc39c4 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_50398ec56c6b44d3039b183d1e418b5c.setIcon(icon_34adc936c40355b7cfa14f0847fc39c4);
-        
-    
-        var popup_861ee42023cfcc795062b33ebfebc06a = L.popup({"maxWidth": "100%"});
-
-        
-            
-                var html_84b4a1f735b4e4333e901b7db0e08032 = $(`<div id="html_84b4a1f735b4e4333e901b7db0e08032" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> La Nubia</p>         <p><b>Ubicación:</b> Manizales</p>      </div>`)[0];
-                popup_861ee42023cfcc795062b33ebfebc06a.setContent(html_84b4a1f735b4e4333e901b7db0e08032);
-            
-        
-
-        marker_50398ec56c6b44d3039b183d1e418b5c.bindPopup(popup_861ee42023cfcc795062b33ebfebc06a)
-        ;
-
-        
-    
-    
-            var marker_9c899f136b47a0363da320f68a68b0f6 = L.marker(
-                [9.33274, -75.2856],
-                {"name": "Las Brujas"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_4c6dafe2a79d81356698557b15525613 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_9c899f136b47a0363da320f68a68b0f6.setIcon(icon_4c6dafe2a79d81356698557b15525613);
-        
-    
-        var popup_0b7e7b138ccf9bb15621a8da281e9055 = L.popup({"maxWidth": "100%"});
-
-        
-            
-                var html_7a6e123f1fad98d9de24b609a1b92e26 = $(`<div id="html_7a6e123f1fad98d9de24b609a1b92e26" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Las Brujas</p>         <p><b>Ubicación:</b> Corozal</p>      </div>`)[0];
-                popup_0b7e7b138ccf9bb15621a8da281e9055.setContent(html_7a6e123f1fad98d9de24b609a1b92e26);
-            
-        
-
-        marker_9c899f136b47a0363da320f68a68b0f6.bindPopup(popup_0b7e7b138ccf9bb15621a8da281e9055)
-        ;
-
-        
-    
-    
-            var marker_9a83a31b1ecddb91eed45087d431f0d8 = L.marker(
-                [6.220549, -75.590582],
-                {"name": "Olaya Herrera"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_02371d8092b3253f6a8c1c64d102942c = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_9a83a31b1ecddb91eed45087d431f0d8.setIcon(icon_02371d8092b3253f6a8c1c64d102942c);
-        
-    
-        var popup_348abbeecdae63a500e05aaccd5d907e = L.popup({"maxWidth": "100%"});
-
-        
-            
-                var html_982b2213055bfb9a24d85a28714e10ab = $(`<div id="html_982b2213055bfb9a24d85a28714e10ab" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Olaya Herrera</p>         <p><b>Ubicación:</b> Medellín</p>      </div>`)[0];
-                popup_348abbeecdae63a500e05aaccd5d907e.setContent(html_982b2213055bfb9a24d85a28714e10ab);
-            
-        
-
-        marker_9a83a31b1ecddb91eed45087d431f0d8.bindPopup(popup_348abbeecdae63a500e05aaccd5d907e)
-        ;
-
-        
-    
-    
-            var marker_fe8e8ee40b790cd71ac6a0e10dd99361 = L.marker(
-                [5.87615, -71.8866],
-                {"name": "Paz de Ariporo"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_1f1caef140086473b03c55517ba3fe59 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_fe8e8ee40b790cd71ac6a0e10dd99361.setIcon(icon_1f1caef140086473b03c55517ba3fe59);
-        
-    
-        var popup_f7d57be6a48052d5911a4e694f67c661 = L.popup({"maxWidth": "100%"});
-
-        
-            
-                var html_a8fcddfdc97a61c9b41b6c2bf1924dd4 = $(`<div id="html_a8fcddfdc97a61c9b41b6c2bf1924dd4" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Paz de Ariporo</p>         <p><b>Ubicación:</b> Paz De Ariporo</p>      </div>`)[0];
-                popup_f7d57be6a48052d5911a4e694f67c661.setContent(html_a8fcddfdc97a61c9b41b6c2bf1924dd4);
-            
-        
-
-        marker_fe8e8ee40b790cd71ac6a0e10dd99361.bindPopup(popup_f7d57be6a48052d5911a4e694f67c661)
-        ;
-
-        
-    
-    
-            var marker_679fc8d575ed12fe750a6e9b5fe047e5 = L.marker(
-                [4.42161, -75.1333],
-                {"name": "Perales"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_d9d6a9deb64d59be47fcd6ba32efe665 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_679fc8d575ed12fe750a6e9b5fe047e5.setIcon(icon_d9d6a9deb64d59be47fcd6ba32efe665);
-        
-    
-        var popup_2206fb4005fc7238382113ffaa20de85 = L.popup({"maxWidth": "100%"});
-
-        
-            
-                var html_236f2e2401d755497d0882aaf4adf12a = $(`<div id="html_236f2e2401d755497d0882aaf4adf12a" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Perales</p>         <p><b>Ubicación:</b> Ibagué</p>      </div>`)[0];
-                popup_2206fb4005fc7238382113ffaa20de85.setContent(html_236f2e2401d755497d0882aaf4adf12a);
-            
-        
-
-        marker_679fc8d575ed12fe750a6e9b5fe047e5.bindPopup(popup_2206fb4005fc7238382113ffaa20de85)
-        ;
-
-        
-    
-    
-            var marker_77ffab2e4c137461754abb3e769e89a1 = L.marker(
-                [4.75818, -75.9557],
-                {"name": "Santa Ana"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_6288082de3ee9c70f4f01f3ab09fe1b0 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_77ffab2e4c137461754abb3e769e89a1.setIcon(icon_6288082de3ee9c70f4f01f3ab09fe1b0);
-        
-    
-        var popup_c84315faa4e57944f4344ccfade2f43d = L.popup({"maxWidth": "100%"});
-
-        
-            
-                var html_0fbf7b767033ed473763818ee8f453ab = $(`<div id="html_0fbf7b767033ed473763818ee8f453ab" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Santa Ana</p>         <p><b>Ubicación:</b> Cartago</p>      </div>`)[0];
-                popup_c84315faa4e57944f4344ccfade2f43d.setContent(html_0fbf7b767033ed473763818ee8f453ab);
-            
-        
-
-        marker_77ffab2e4c137461754abb3e769e89a1.bindPopup(popup_c84315faa4e57944f4344ccfade2f43d)
-        ;
-
-        
-    
-    
-            var marker_b74f23d077af0b5a9e5b8e552da4011c = L.marker(
-                [7.06888, -70.7369],
-                {"name": "Santiago P\u00e9rez Quiroz"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_2bd7d564867b539115f4abc2f55a32e5 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_b74f23d077af0b5a9e5b8e552da4011c.setIcon(icon_2bd7d564867b539115f4abc2f55a32e5);
-        
-    
-        var popup_ef374f52980ae5c58c74cf5466d76418 = L.popup({"maxWidth": "100%"});
-
-        
-            
-                var html_3b93d63c488d7a34b69edcefdb67a92a = $(`<div id="html_3b93d63c488d7a34b69edcefdb67a92a" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Santiago Pérez Quiroz</p>         <p><b>Ubicación:</b> Arauca</p>      </div>`)[0];
-                popup_ef374f52980ae5c58c74cf5466d76418.setContent(html_3b93d63c488d7a34b69edcefdb67a92a);
-            
-        
-
-        marker_b74f23d077af0b5a9e5b8e552da4011c.bindPopup(popup_ef374f52980ae5c58c74cf5466d76418)
-        ;
-
-        
-    
-    
-            var marker_c2b60f559d7c67283fea1e59ea35b03f = L.marker(
-                [4.27624, -74.7967],
-                {"name": "Santiago Vila"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_2baa823ee30cc71f663ae3a82b6a992d = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_c2b60f559d7c67283fea1e59ea35b03f.setIcon(icon_2baa823ee30cc71f663ae3a82b6a992d);
-        
-    
-        var popup_92989f194aa59507b2dd4488dd24e6c6 = L.popup({"maxWidth": "100%"});
-
-        
-            
-                var html_ba60586104930539139ae3e92d4cd11c = $(`<div id="html_ba60586104930539139ae3e92d4cd11c" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Santiago Vila</p>         <p><b>Ubicación:</b> Girardot</p>      </div>`)[0];
-                popup_92989f194aa59507b2dd4488dd24e6c6.setContent(html_ba60586104930539139ae3e92d4cd11c);
-            
-        
-
-        marker_c2b60f559d7c67283fea1e59ea35b03f.bindPopup(popup_92989f194aa59507b2dd4488dd24e6c6)
-        ;
-
-        
-    
-    
-            var marker_5f6d375689b8d6ddf190f230869e59f3 = L.marker(
-                [0.505228, -76.5008],
-                {"name": "Tres de Mayo"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_828f5ff9927265dfe677f747d61f84f0 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_5f6d375689b8d6ddf190f230869e59f3.setIcon(icon_828f5ff9927265dfe677f747d61f84f0);
-        
-    
-        var popup_18a94d7908a06403a3349988374b1c98 = L.popup({"maxWidth": "100%"});
-
-        
-            
-                var html_bf93b9066eb5a77f59f7de31c9a59e5e = $(`<div id="html_bf93b9066eb5a77f59f7de31c9a59e5e" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Tres de Mayo</p>         <p><b>Ubicación:</b> Puerto Asís</p>      </div>`)[0];
-                popup_18a94d7908a06403a3349988374b1c98.setContent(html_bf93b9066eb5a77f59f7de31c9a59e5e);
-            
-        
-
-        marker_5f6d375689b8d6ddf190f230869e59f3.bindPopup(popup_18a94d7908a06403a3349988374b1c98)
-        ;
-
-        
-    
-    
-            var marker_f4399415f606df25f3296b989fea8e5e = L.marker(
-                [4.16787, -73.6138],
-                {"name": "Vanguardia"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_938f0683d5fa43e2c9e2c2705c243a87 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_f4399415f606df25f3296b989fea8e5e.setIcon(icon_938f0683d5fa43e2c9e2c2705c243a87);
-        
-    
-        var popup_b9314fa7e214732481bbf89e3dfa37b8 = L.popup({"maxWidth": "100%"});
-
-        
-            
-                var html_6cb751d911b8a74d4f11ebc2192f75db = $(`<div id="html_6cb751d911b8a74d4f11ebc2192f75db" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Vanguardia</p>         <p><b>Ubicación:</b> Villavicencio</p>      </div>`)[0];
-                popup_b9314fa7e214732481bbf89e3dfa37b8.setContent(html_6cb751d911b8a74d4f11ebc2192f75db);
-            
-        
-
-        marker_f4399415f606df25f3296b989fea8e5e.bindPopup(popup_b9314fa7e214732481bbf89e3dfa37b8)
-        ;
-
-        
-    
-    
-            var marker_3ff76a144346c7372b568dc254043d6f = L.marker(
-                [7.02433, -73.8068],
-                {"name": "Yarigu\u00edes"}
-            ).addTo(map_26925c45312d30b1d824ec463f4be208);
-        
-    
-            var icon_7b9a475820256db53769306ec716b569 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "gray", "prefix": "glyphicon"}
-            );
-            marker_3ff76a144346c7372b568dc254043d6f.setIcon(icon_7b9a475820256db53769306ec716b569);
-        
-    
-        var popup_c0c520b543f312259e73c116a7f2f341 = L.popup({"maxWidth": "100%"});
-
-        
-            
-                var html_87513ed2defcf8bab18307526c879b62 = $(`<div id="html_87513ed2defcf8bab18307526c879b62" style="width: 100.0%; height: 100.0%;">         <p><b>Aeropuerto:</b> Yariguíes</p>         <p><b>Ubicación:</b> Barrancabermeja</p>      </div>`)[0];
-                popup_c0c520b543f312259e73c116a7f2f341.setContent(html_87513ed2defcf8bab18307526c879b62);
-            
-        
-
-        marker_3ff76a144346c7372b568dc254043d6f.bindPopup(popup_c0c520b543f312259e73c116a7f2f341)
-        ;
-
-        
-    
 </script>
 
 <!-- IMPORTS -->
@@ -1465,6 +1027,5 @@
 <script src="../static/js/graph.js"></script>
 <script src="../static/js/panel.js"></script>
 <script src="../static/js/main.js"></script>
-
 
 </html>
